@@ -63,10 +63,6 @@
     color: lightgreen;
 }
 
-.collapsible-set {
-    margin: 2% 5%;
-}
-
 .panel-default>.panel-heading {
     background-color: #006600;
     color: white;
@@ -88,11 +84,9 @@
     width: 100%;
     text-align: left;
     outline: none;
-    font-size: 16px;
     text-decoration: none;
     margin-top: 0;
+    font-size: 15px;
     margin-bottom: 0; 
 }
-
-
 
