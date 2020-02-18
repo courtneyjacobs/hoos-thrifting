@@ -1,0 +1,65 @@
+.navbar-default {
+    background-color: seagreen;
+    color: white;
+}
+
+.page-footer {
+    background-color: seagreen;
+    color: white;
+    padding-top: 2%;
+}
+
+.page-footer a {
+    color: white;
+}
+
+.page-footer ul {
+    list-style-type: none;
+    color: white;
+}
+
+.left-footer {
+    text-align: right;
+}
+
+.right-footer {
+    text-align: left;
+}
+
+.copyright {
+    padding: 1%;
+    margin-top: 1%; 
+    background-color: #006600;
+}
+
+.navbar-default, .page-footer a:hover {
+    color: lightgreen;
+    text-decoration: none;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: white;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+    color: lightgreen;
+}
+
+.navbar-default .navbar-brand {
+    color: white;
+}
+
+.navbar-default .navbar-brand:hover {
+    color: lightgreen;
+}
+
+.navbar .nav > .active > a {
+    background: #006600;
+    color: white;
+}
+
+.navbar .nav > .active > a:hover {
+    background: #006600;
+    color: lightgreen;
+}
+
