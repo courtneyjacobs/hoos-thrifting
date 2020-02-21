@@ -1,8 +1,15 @@
+/* Navigation Bar */
 .navbar-default {
     background-color: seagreen;
     color: white;
 }
 
+/* Page Titles */
+.page-header {
+    text-align: center;
+}
+
+/* Footer */
 .page-footer {
     background-color: seagreen;
     color: white;
@@ -89,4 +96,5 @@
     font-size: 15px;
     margin-bottom: 0; 
 }
+
 
