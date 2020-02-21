@@ -115,11 +115,11 @@
             <div class="form-group">   
                 <label class="control-label col-sm-2" for="price">Price:</label>
                 <div class="col-sm-3">
-                    <input class="form-control"  id="price"></input>
+                    <input class="form-control"  id="price" type="number" step="0.01" min="1" max="1000" required onchange="validPrice()"></input>
                 </div>
                 <label class="control-label col-sm-2" for="youearn">You Will Earn:</label>
                 <div class="col-sm-3">
-                    <input disabled="true" class="form-control"  id="youearn"></input>
+                    <input disabled="true" class="form-control"  id="youearn" ></input>
                 </div>
             </div>
             <div class="form-group">        
