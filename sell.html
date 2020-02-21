@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="main.js"></script>
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
@@ -38,7 +39,7 @@
         <form id="sell-form" class="form-horizontal" action="" method="post" onsubmit="return validateInput()">
             <div class="form-group">
                 <label class="control-label col-sm-2" for="category">Category:</label>
-                <div class="col-sm-10">          
+                <div class="col-sm-8">          
                     <select class="form-control" id="category">
                         <option>1</option>
                         <option>2</option>
@@ -50,7 +51,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="brand">Brand:</label>
-                <div class="col-sm-10">          
+                <div class="col-sm-8">          
                     <select class="form-control" id="brand">
                         <option>1</option>
                         <option>2</option>
@@ -62,7 +63,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="size">Size:</label>
-                <div class="col-sm-10">          
+                <div class="col-sm-8">          
                     <select class="form-control" id="size">
                         <option>1</option>
                         <option>2</option>
@@ -74,43 +75,56 @@
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="color">Color:</label>
-                <div class="col-sm-10">          
+                <div class="col-sm-8">          
                     <select class="form-control" id="color">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                        <option>White</option>
+                        <option>Black</option>
+                        <option>Gray</option>
+                        <option>Brown</option>
+                        <option>Cream/Beige</option>
+                        <option>Tan</option>
+                        <option>Gold</option>
+                        <option>Silver</option>
+                        <option>Red</option>
+                        <option>Orange</option>
+                        <option>Yellow</option>
+                        <option>Green</option>
+                        <option>Blue</option>
+                        <option>Purple</option>
                     </select>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="condition">Condition:</label>
-                <div class="col-sm-10">          
+                <div class="col-sm-8">          
                     <select class="form-control" id="condition">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                        <option>New</option>
+                        <option>Like New</option>
+                        <option>Good</option>
+                        <option>Fair</option>
+                        <option>Poor</option>
                     </select>
                 </div>
             </div>
             <div class="form-group">   
                 <label class="control-label col-sm-2" for="desc">Description:</label>
-                <div class="col-sm-10">
+                <div class="col-sm-8">
                     <textarea class="form-control" id="desc"></textarea>
                 </div>
             </div>
             <div class="form-group">   
                 <label class="control-label col-sm-2" for="price">Price:</label>
-                <div class="col-sm-10">
+                <div class="col-sm-3">
                     <input class="form-control"  id="price"></input>
+                </div>
+                <label class="control-label col-sm-2" for="youearn">You Will Earn:</label>
+                <div class="col-sm-3">
+                    <input disabled="true" class="form-control"  id="youearn"></input>
                 </div>
             </div>
             <div class="form-group">        
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-default">Submit</button>
+                    <button type="submit" class="btn btn-default">List Item</button>
                 </div>
             </div>
         </form>
