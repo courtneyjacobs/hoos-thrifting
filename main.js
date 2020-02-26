@@ -39,8 +39,7 @@ function setEarnings() {
 // Show confirmation message
 function confirmMessage() {
 	// once Submit button is clicked
-	
-	// hide form
+	event.preventDefault()			// prevents page from refreshing
 	document.getElementById("contact-form").style.display="none";
 	document.getElementById("Confirm-Submission").style.display="block";
 
