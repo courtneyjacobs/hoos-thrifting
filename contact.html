@@ -45,26 +45,24 @@
         <div class="col-lg-7">
             <p class="lead"> Before sending us a message, make sure our <a href="faq.html">Frequently Asked Questions (FAQ)</a> page doesn't already answer your questions! If you still have any inquiries, go ahead and send us message using the form.</p>
         </div>
-
+        <!--Begin Form-->
         <div class="col-lg-5">
-
-
             <form id="contact-form" onsubmit="confirmMessage()">			
-                <div class="form-group">   
-	                <label>First Name:</label><br>
-	                <input class="form-control" id="FName" type="text" required placeholder="Enter First Name"></input>
+                <div class="form-group required">   
+	                <label for="FName">First Name:</label><br>
+	                <input class="form-control" id="FName" type="text" required placeholder="First Name" autofocus></input>
 
 	            </div>
-	     		<div class="form-group"> 
-	                <label>Last Name:</label><br>
-	                <input class="form-control" id="LName" type="text" required placeholder="Enter Last Name"></input>
+	     		<div class="form-group required"> 
+	                <label for="LName">Last Name:</label><br>
+	                <input class="form-control" id="LName" type="text" required placeholder="Last Name"></input>
 	            </div>
-	            <div class="form-group"> 
-	                <label>Email:</label><br>
-	                <input class="form-control" id="email" type="email" required placeholder="Enter email"></input>
+	            <div class="form-group required"> 
+	                <label for="email">Email:</label><br>
+	                <input class="form-control" id="email" type="email" required placeholder="your@email.com"></input>
 	            </div>
-	            <div class="form-group"> 
-	                <label>Message:</label><br>
+	            <div class="form-group required"> 
+	                <label for="message">Message:</label><br>
 	                <textarea class="form-control" id="message" required placeholder="Give a brief description of your situation or question!" rows=10></textarea>
                 </div>
                 <div class="form-group"> 
@@ -72,7 +70,7 @@
                 </div>
 	        	
             </form>
-
+            <!--Confirmation Screen-->
             <div id="Confirm-Submission" style="display: none;">
                 <img class="rounded mx-auto d-block" src="https://svgsilh.com/svg/40319.svg" alt="Upload Icon" style="width:90px;height:90px;" class="center" >
                 

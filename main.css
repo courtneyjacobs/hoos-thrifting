@@ -118,6 +118,23 @@
     margin-bottom: 0; 
 }
 
+/* Forms CSS */
+/* Source: stackoverflow.com/questions/11197671/use-css-to-automatically-add-required-field-asterisk-to-form-inputs */
+.form-group.required label:after {
+    content:" *";
+    color:red;
+}
+
+.form-group textarea {
+    resize: none;
+}
+
+#dt {
+    text-indent: -500px;
+    height: 25px;
+    width: 200px;
+  }
+
 /* mobile phones */ 
 @media only screen and (max-width: 768px) {
     body {
@@ -140,6 +157,10 @@
     }
     .fa-bars {
         color: seagreen;
+    }
+
+    .display-4 a {
+        color: white;
     }
     
 }

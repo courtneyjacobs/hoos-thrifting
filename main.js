@@ -39,9 +39,35 @@ function setEarnings() {
 // Show confirmation message
 function confirmMessage() {
 	// once Submit button is clicked
-	event.preventDefault()			// prevents page from refreshing
+	event.preventDefault();			// prevents page from refreshing
 	document.getElementById("contact-form").style.display="none";
 	document.getElementById("Confirm-Submission").style.display="block";
 
 }
+
+/*
+	fundraise.html
+*/
+var pastPromo = ["GOPUFF", "UVA20", "UVAUPC", "H"];				// global list - all code should be capitalized
+
+function checkPromo() {
+	var enteredPromo = document.getElementById("promo").value.toUpperCase();
+	var status = document.getElementById("promoError").style.visibility;
+
+	// if error text is hidden
+	if (status == "hidden") {		
+		if (pastPromo.includes(enteredPromo) && (enteredPromo.length >= 3)) {			// if promo already exists
+			document.getElementById("promoError").style.visibility="visible";			// show error message
+		}
+		else{																			// combo of letters isn't in list yet
+			// add promo code to database list if submit button is clicked
+		}
+	}
+	// if error text is already shown
+	else {
+		document.getElementById("promoError").style.visibility="hidden";
+		checkPromo();		// call function again
+	}
+}
+
 
