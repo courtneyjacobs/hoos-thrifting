@@ -3,7 +3,49 @@
 	sell.html
 */
 
+var items = [];
+
 // Valid Inputs
+
+// Creates <p> with items populated
+function createItems() {
+	document.getElementById("createdItems").innerHTML ="<p>Your Items</p>";
+	var i=0;
+	items.forEach( 
+		item => {
+			i++;
+			document.getElementById("createdItems").innerHTML+="<strong> Item " + i + "</strong> <p> Category: " + item.category + ", Brand: " + item.brand + ", Size: " + item.size + ", Color: " +
+			item.color + ", Condition: " + item.condition + ", Description: " + item.desc + ", Price: " + item.price + "</p><br>"; 
+		}
+	)
+}
+
+// Populate object from form
+function populate() {
+	var newItem = {
+	    category:"",
+	    brand:"",
+	    size:"",
+	    color:"white",
+	    condition:"new",
+	    desc:"none",
+	    price: "",
+	};
+	var getDropdown = dropID => {
+		drop = document.getElementById(dropID);
+		return drop.options[drop.selectedIndex].value;
+	}
+	newItem.category = getDropdown("category");
+	newItem.brand = document.getElementById("brand").value;
+	newItem.size = document.getElementById("size").value;
+	newItem.color = document.getElementById("color").value;
+	newItem.condition = document.getElementById("condition").value;
+	newItem.desc = document.getElementById("desc").value;
+	newItem.price = document.getElementById("price").value;
+	items.push(newItem);
+	createItems();
+	document.getElementById("sell-form").reset();
+}
 
 // Check if price is within range.
 function validPrice() {
@@ -14,8 +56,8 @@ function validPrice() {
 	}
 	// show error
 	else {
-		var youEarn = document.getElementById("youearn");
-		youEarn.value = "Value must be <= $1000";
+		var youEarnError = document.getElementById("youearnError");
+		youEarnError.innerHTML = "Value must be less than or equal to $1000.00";
 	}
 
 }
