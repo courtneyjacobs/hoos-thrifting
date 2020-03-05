@@ -1,3 +1,7 @@
+/**
+ * Author: Courtney Jacobs (cj5he), Amara Vo (av2jf)
+*/
+
 /* For mobile phones: */
 /*[class*="col-"] {
   width: 100%;
@@ -19,7 +23,9 @@
   .col-xs-12 {width: 100%;}
 }*/
 
-/* Navigation Bar */
+/*
+* Navigation Bar
+*/
 .navbar-default {
     background-color: seagreen;
     color: white;
@@ -29,13 +35,17 @@
     color: white;
 }
 
-/* Page Titles */
+/*
+* Page Titles
+*/
 .display-4 a {
     color: black;
     text-decoration:none; 
 }
 
-/* Footer */
+/*
+* Footer
+*/
 .page-footer {
     background-color: seagreen;
     color: white;
@@ -90,7 +100,9 @@
     color: lightgreen;
 }
 
-/* FAQ */
+/*
+* FAQ
+*/
 .panel-default>.panel-heading {
     background-color: #006600;
     color: white;
@@ -118,11 +130,18 @@
     margin-bottom: 0; 
 }
 
-/* Forms CSS */
+/*
+* Forms CSS
+*/
+
 /* Source: stackoverflow.com/questions/11197671/use-css-to-automatically-add-required-field-asterisk-to-form-inputs */
 .form-group.required label:after {
-    content:" *";
+    content:" *";                           /*Marks items that are required*/
     color:red;
+}
+#choice label:after {
+    content:"";                           /* Removes asterisks */
+    color:blue;
 }
 
 .form-group textarea {

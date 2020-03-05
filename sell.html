@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="author" content="Courtney Jacobs">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sell</title>
@@ -15,7 +16,7 @@
 </head>
 <body>
 
-<!-- Bootstrap Nav Bar from https://getbootstrap.com/docs/4.4/components/navbar/ -->   
+<!--Source: Bootstrap Nav Bar from https://getbootstrap.com/docs/4.4/components/navbar/ -->   
 <header>
     <nav class="navbar navbar-default navbar-expand-md">
         <a class="navbar-brand" href="index.html">HoosThrifting</a>
@@ -42,13 +43,14 @@
     </div>
     
     <div class="row">
+        <!--Upload Button-->
         <div class="col-lg-4">
             <img class="rounded mx-auto d-block" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/OOjs_UI_icon_upload-ltr.svg/1024px-OOjs_UI_icon_upload-ltr.svg.png" alt="Upload Icon" style="width:150px;height:150px;" class="center" >
         </div>
 
         <div class="col-lg-8">
             <div class="page-content">
-            <!-- Bootstrap form from https://www.w3schools.com/bootstrap/bootstrap_forms.asp -->
+            <!--Source: Bootstrap form from https://www.w3schools.com/bootstrap/bootstrap_forms.asp -->
             <form id="sell-form" class="form-horizontal" action="" method="post" onsubmit="populate(); return false;">
                 <div class="form-group" >
                     <label class="control-label col-sm-2" for="category">Category:</label>
@@ -62,6 +64,7 @@
                         </select>
                     </div>
                 </div>
+                <!--Brand Selection-->
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="brand">Brand:</label>
                     <div class="col-sm-8">          
@@ -74,6 +77,7 @@
                         </select>
                     </div>
                 </div>
+                <!--Size Selection-->
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="size">Size:</label>
                     <div class="col-sm-8">          
@@ -86,6 +90,7 @@
                         </select>
                     </div>
                 </div>
+                <!--Color Selection-->
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="color">Color:</label>
                     <div class="col-sm-8">          
@@ -107,6 +112,7 @@
                         </select>
                     </div>
                 </div>
+                <!--Condition Selection-->
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="condition">Condition:</label>
                     <div class="col-sm-8">          
@@ -119,12 +125,14 @@
                         </select>
                     </div>
                 </div>
+                <!--Description-->
                 <div class="form-group">   
                     <label class="control-label col-sm-2" for="desc">Description:</label>
                     <div class="col-sm-8">
                         <textarea class="form-control" id="desc" maxlength="250"></textarea>
                     </div>
                 </div>
+                <!--Pricing-->
                 <div class="form-group">
                     <label class="control-label col-sm-2 d-inline" for="price">Price:</label>
                     <div class="col-3">
@@ -136,12 +144,14 @@
                         <input disabled="true" class="form-control"  id="youearn" ></input>
                     </div>
                 </div>
+                <!--List Item-->
                 <div class="form-group">        
                     <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-secondary">List Item</button>
                     </div>
                 </div>
             </form>
+            <!--Item List-->
             <div id="createdItems">
             </div>
             </div>
@@ -149,6 +159,7 @@
     </div>
 </div>
 
+<!--Footer-->
 <footer class="page-footer">
     <div class="row">
         <div class="col-4">
