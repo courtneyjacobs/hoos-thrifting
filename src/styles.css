@@ -188,4 +188,10 @@
     
 }
 
-
+/* Shop */
+.card-img-top {
+    object-fit: scale-down;
+}
+.card {
+    display: flex;
+}
