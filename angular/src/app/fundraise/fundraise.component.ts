@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FundraiseComponent implements OnInit {
     title = 'Fundraise';
-
+    url = 'fundraise';
     constructor() { }
 
     ngOnInit(): void {

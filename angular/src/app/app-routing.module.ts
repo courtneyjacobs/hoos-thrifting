@@ -15,37 +15,30 @@ const routes: Routes = [
     {
         path: 'shop',
         component: ShopComponent,
-        data: { title: 'Shop' }
     },
     {
         path: 'sell',
         component: SellComponent,
-        data: { title: 'Sell' }
     },
     {
         path: 'fundraise',
         component: FundraiseComponent,
-        data: { title: 'Fundraise' }
     },
     {
         path: 'contact',
         component: ContactComponent,
-        data: { title: 'Contact Us' }
     },
     {
         path: 'faq',
         component: FaqComponent,
-        data: { title: 'Frequently Asked Questions' }
     },
     { 
         path: 'cart/:id', 
         component: CartComponent,
-        data: { title: 'Cart' }
     },
     { 
         path: 'profile/:id',
         component: ProfileComponent,
-        data: { title: 'Profile' }
     },
     { 
         path: '',
@@ -55,7 +48,6 @@ const routes: Routes = [
     {
         path: '**',
         component: PnfComponent,
-        data: { title: 'Page Not Found'}
     }];
 
 @NgModule({
