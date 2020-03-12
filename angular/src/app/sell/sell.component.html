@@ -1,5 +1,120 @@
 <div class="container">
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-        <h1 class="display-4"><a href="#">{{title}}</a></h1>
+        <h1 class="display-4"><a href="{{ url }}">{{title}}</a></h1>
+    </div>
+    <div class="row">
+        <!--Upload Button-->
+        <div class="col-lg-4">
+            <img class="rounded mx-auto d-block" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/OOjs_UI_icon_upload-ltr.svg/1024px-OOjs_UI_icon_upload-ltr.svg.png" alt="Upload Icon" style="width:150px;height:150px;" class="center" >
+        </div>
+
+        <div class="col-lg-8">
+            <div class="page-content">
+            <!--Source: Bootstrap form from https://www.w3schools.com/bootstrap/bootstrap_forms.asp -->
+            <form id="sell-form" class="form-horizontal" action="" method="post" onsubmit="populate(); return false;">
+                <div class="form-group" >
+                    <label class="control-label col-sm-2" for="category">Category:</label>
+                    <div class="col-sm-8">          
+                        <select class="form-control" id="category">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                </div>
+                <!--Brand Selection-->
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="brand">Brand:</label>
+                    <div class="col-sm-8">          
+                        <select class="form-control" id="brand">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                </div>
+                <!--Size Selection-->
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="size">Size:</label>
+                    <div class="col-sm-8">          
+                        <select class="form-control" id="size">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                </div>
+                <!--Color Selection-->
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="color">Color:</label>
+                    <div class="col-sm-8">          
+                        <select class="form-control" id="color">
+                            <option>White</option>
+                            <option>Black</option>
+                            <option>Gray</option>
+                            <option>Brown</option>
+                            <option>Cream/Beige</option>
+                            <option>Tan</option>
+                            <option>Gold</option>
+                            <option>Silver</option>
+                            <option>Red</option>
+                            <option>Orange</option>
+                            <option>Yellow</option>
+                            <option>Green</option>
+                            <option>Blue</option>
+                            <option>Purple</option>
+                        </select>
+                    </div>
+                </div>
+                <!--Condition Selection-->
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="condition">Condition:</label>
+                    <div class="col-sm-8">          
+                        <select class="form-control" id="condition">
+                            <option>New</option>
+                            <option>Like New</option>
+                            <option>Good</option>
+                            <option>Fair</option>
+                            <option>Poor</option>
+                        </select>
+                    </div>
+                </div>
+                <!--Description-->
+                <div class="form-group">   
+                    <label class="control-label col-sm-2" for="desc">Description:</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" id="desc" maxlength="250"></textarea>
+                    </div>
+                </div>
+                <!--Pricing-->
+                <div class="form-group">
+                    <label class="control-label col-sm-2 d-inline" for="price">Price:</label>
+                    <div class="col-3">
+                        <input class="form-control"  id="price" type="number" step="0.01" min="1" max="1000" required onchange="validPrice()">
+                        <small style="color: red" id="youearnError"></small><br>
+                    </div> 
+                    <div class="col-3">
+                        <label class="control-label" for="youearn">You Will Earn:</label>
+                        <input disabled="true" class="form-control"  id="youearn" >
+                    </div>
+                </div>
+                <!--List Item-->
+                <div class="form-group">        
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-secondary">List Item</button>
+                    </div>
+                </div>
+            </form>
+            <!--Item List-->
+            <div id="createdItems">
+            </div>
+            </div>
+        </div>
     </div>
 </div>

@@ -114,6 +114,8 @@
     font-size: 15px;
     margin-top: 0;
     margin-bottom: 0;
+    border: 2px solid white;
+    border-radius: 7px;
 }
 
 .panel-default>.panel-heading:hover {
@@ -128,6 +130,8 @@
     margin-top: 0;
     font-size: 15px;
     margin-bottom: 0; 
+    border: 2px solid white;
+    border-radius: 7px;
 }
 
 /*

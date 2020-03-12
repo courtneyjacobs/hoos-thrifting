@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PnfComponent implements OnInit {
     title = 'Page Not Found';
+    url = 'pnf';
     constructor() { }
 
     ngOnInit(): void {
