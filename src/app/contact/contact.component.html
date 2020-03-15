@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 class="display-4"><a href="{{ url }}">{{ title }}</a></h1>
+    </div>
+    <div class="row">
+        <div class="col-lg-7">
+            <p class="lead"> Before sending us a message, make sure our <a href="faq">Frequently Asked Questions (FAQ)</a> page doesn't already answer your questions! If you still have any inquiries, go ahead and send us message using the form.</p>
+        </div>
+        <!--Begin Form-->
+        <div class="col-lg-5">
+            <form id="contact-form" onsubmit="confirmMessage()">            
+                <div class="form-group required">   
+                    <label for="FName">First Name:</label><br>
+                    <input class="form-control" id="FName" type="text" required placeholder="First Name" autofocus>
+
+                </div>
+                <div class="form-group required"> 
+                    <label for="LName">Last Name:</label><br>
+                    <input class="form-control" id="LName" type="text" required placeholder="Last Name">
+                </div>
+                <div class="form-group required"> 
+                    <label for="email">Email:</label><br>
+                    <input class="form-control" id="email" type="email" required placeholder="your@email.com">
+                </div>
+                <div class="form-group required"> 
+                    <label for="message">Message:</label><br>
+                    <textarea class="form-control" id="message" required placeholder="Give a brief description of your situation or question!" rows=10></textarea>
+                </div>
+                <div class="form-group"> 
+                    <button type="submit" class="btn btn-primary" style="width:144px">Send</button>
+                </div>
+                
+            </form>
+            <!--Confirmation Screen-->
+            <div id="Confirm-Submission" style="display: none;">
+                <img class="rounded mx-auto d-block" src="https://svgsilh.com/svg/40319.svg" alt="Checkmark" style="width:90px;height:90px;" class="center" >
+                <p id="Confirm-Text" class="lead" style="padding-top: 10px"></p>
+            </div>
+        </div>
+    </div>
+</div>

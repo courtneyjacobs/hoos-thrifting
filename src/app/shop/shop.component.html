@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 class="display-4"><a href="{{ url }}">{{ title }}</a></h1>
+    </div>
+    <div class="row">
+        <!-- Card columns from Bootstrap docs at https://getbootstrap.com/docs/4.0/components/card/ -->
+        <div *ngFor="let item of items" class="card-deck">
+            <div class="card shadow-sm">
+                <div class="card-img-top">
+                    <img src="{{ item.image }}">
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{ item.id }}</p>
+                    <p class="card-text">{{ item.price }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <a href="{{ url }}" class="btn btn-success" role="button">Back to top</a>
+        </div>
+    </div>
+</div>
