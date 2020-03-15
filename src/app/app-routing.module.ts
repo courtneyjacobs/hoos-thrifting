@@ -7,6 +7,7 @@ import { SellComponent }        from './sell/sell.component';
 import { FundraiseComponent }   from './fundraise/fundraise.component';
 import { ContactComponent }     from './contact/contact.component';
 import { FaqComponent }         from './faq/faq.component';
+import { CartdefaultComponent } from './cartdefault/cartdefault.component';
 import { CartComponent }        from './cart/cart.component';
 import { ProfileComponent }     from './profile/profile.component';
 import { PnfComponent }         from './pnf/pnf.component';
@@ -31,6 +32,10 @@ const routes: Routes = [
     {
         path: 'faq',
         component: FaqComponent,
+    },
+    {
+        path: 'cart',
+        component: CartdefaultComponent,
     },
     { 
         path: 'cart/:id', 
