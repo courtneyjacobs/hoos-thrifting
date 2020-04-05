@@ -19,27 +19,27 @@
 <!--Source: Bootstrap Nav Bar from https://getbootstrap.com/docs/4.4/components/navbar/ -->   
 <header>
     <nav class="navbar navbar-default navbar-expand-md">
-        <a class="navbar-brand" href="index.html">HoosThrifting</a>
+        <a class="navbar-brand" href="index.php">HoosThrifting</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
             <i class="fas fa-bars"></i>        
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">   
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a href="shop.html" class="nav-link">Shop</a></li>
-                <li class="nav-item"><a href="sell.html" class="nav-link">Sell</a></li>
-                <li class="nav-item"><a href="fundraise.html" class="nav-link">Fundraise</a></li>
+                <li class="nav-item"><a href="shop.php" class="nav-link">Shop</a></li>
+                <li class="nav-item"><a href="sell.php" class="nav-link">Sell</a></li>
+                <li class="nav-item"><a href="fundraise.php" class="nav-link">Fundraise</a></li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href="cart.html" class="nav-link"><i class="fas fa-shopping-cart"></i></a></li>
-                <li class="nav-item"><a href="profile.html" class="nav-link"><i class="fas fa-user"></i></a></li>
+                <li class="nav-item"><a href="cart.php" class="nav-link"><i class="fas fa-shopping-cart"></i></a></li>
+                <li class="nav-item"><a href="profile.php" class="nav-link"><i class="fas fa-user"></i></a></li>
             </ul>        
         </div>  
     </nav>
-</header>  
+</header> 
 
 <div class="container">
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-        <h1 class="display-4"><a href="sell.html">Sell</a></h1>
+        <h1 class="display-4"><a href="sell.php">Sell</a></h1>
     </div>
     
     <div class="row">
@@ -164,22 +164,22 @@
     <div class="row">
         <div class="col-4">
             <ul style="text-align: right;">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="cart.html">Cart</a></li>
-                <li><a href="profile.html">Profile</a></li>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="cart.php">Cart</a></li>
+                <li><a href="profile.php">Profile</a></li>
             </ul>
         </div>
         <div class="col-4">
             <ul style="text-align: center;">
-                <li><a href="shop.html">Shop</a></li>
-                <li><a href="sell.html">Sell</a></li>
-                <li><a href="fundraise.html">Fundraise</a></li>
+                <li><a href="shop.php">Shop</a></li>
+                <li><a href="sell.php">Sell</a></li>
+                <li><a href="fundraise.php">Fundraise</a></li>
             </ul>
         </div>
         <div class="col-4" style="text-align: left">
             <ul>
-                <li><a href="faq.html">FAQ</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="faq.php">FAQ</a></li>
+                <li><a href="contact.php">Contact</a></li>
             </ul>
         </div>
     </div>
