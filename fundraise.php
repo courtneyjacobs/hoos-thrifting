@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
-
 <!--Source: Bootstrap Nav Bar from https://getbootstrap.com/docs/4.4/components/navbar/ -->   
 <header>
     <nav class="navbar navbar-default navbar-expand-md">
@@ -136,6 +135,13 @@
     </div>
 
 </div>
+
+    
+<?php
+require('connect-db.php');
+require('promo.php')
+?>
+
 
 <!--Footer-->
 <footer class="page-footer">

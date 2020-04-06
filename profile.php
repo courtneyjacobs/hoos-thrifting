@@ -15,6 +15,12 @@
 </head>
 <body>
 
+    
+<?php
+require('connect-db.php');
+require('user.php')
+?>
+
 <!--Source: Bootstrap Nav Bar from https://getbootstrap.com/docs/4.4/components/navbar/ -->   
 <header>
     <nav class="navbar navbar-default navbar-expand-md">
