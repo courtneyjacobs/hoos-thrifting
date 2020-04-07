@@ -34,6 +34,7 @@ require('user.php');
                 <li class="nav-item"><a href="fundraise.php" class="nav-link">Fundraise</a></li>
             </ul>
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a href='<?php if(isset($_SESSION['user'])) echo "logout.php"; else echo "login.php"; ?>' class="nav-link"><?php if(isset($_SESSION['user'])) echo "Logout"; else echo "Log in or sign up"; ?></a></li>
                 <li class="nav-item"><a href="cart.php" class="nav-link"><i class="fas fa-shopping-cart"></i></a></li>
                 <li class="nav-item"><a href="profile.php" class="nav-link"><i class="fas fa-user"></i></a></li>
             </ul>        
@@ -71,7 +72,7 @@ require('user.php');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // login
     if(!empty($_POST['login']) && !empty($_POST['username']) && !empty($_POST['password'])) {
-        if(authenticate($_POST['username'], $_POST['password']))) {
+        if(authenticate($_POST['username'], $_POST['password'])) {
             // redirect to home page and log in by starting session
             session_start();
             $redir = 'http://localhost/hoos-thrifting/index.html';
@@ -85,9 +86,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // signup
     if(!empty($_POST['signup']) && !empty($_POST['first']) && !empty($_POST['last']) && !empty($_POST['email']) && !empty($_POST['username']) && !empty($_POST['password'])) {
         if(!doesUserExist($_POST['username'])) {
-            if(createUser($_POST['username']), $_POST['pass']), $_POST['first']), $_POST['last']), $_POST['email']))) {
+            if(createUser($_POST['username'], $_POST['pass'], $_POST['first'], $_POST['last'], $_POST['email'])) {
                 // redirect to home page and log in by starting session
                 session_start();
+                $_SESSION['user'] = $_POST['username'];
                 $redir = 'http://localhost/hoos-thrifting/index.html';
                 header("Location: ". $redir);
             }
@@ -96,8 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo("There was a problem creating your account. Please try again.");
             }
         }
-        }
-    }
+    }   
 }
 ?>
 
