@@ -92,18 +92,22 @@ function confirmMessage() {
 
 	// fundraise form
 	if (document.getElementById("fundraise-form")){	
-		
+
+		// if charity field is empty
+		if (document.getElementById("charityError").style.visibility == "visible") {
+			event.preventDefault();															// prevents form from submitting
+			document.getElementById("charityName").focus();		
+		}
 		// if promo is invalid
-		if (document.getElementById("promoError").style.visibility == "visible") {
+		else if (document.getElementById("promoError").style.visibility == "visible") {
 			event.preventDefault();															// prevents form from submitting
 			document.getElementById("promo").focus();		
 		}
 		else {
-			var name = document.getElementById('FName').value;
 			event.preventDefault();															// prevents page from refreshing
 			document.getElementById("fundraise-form").style.display="none";
 			document.getElementById("Confirm-Submission").style.display="block";
-			document.getElementById("Confirm-Text").innerHTML = "Thank you " + name + ", good luck with your Fundraiser!";
+			document.getElementById("Confirm-Text").innerHTML = "Thank you, good luck with your fundraiser!";
 		}
 	}
 }
@@ -115,31 +119,40 @@ var pastPromo = ["GOPUFF", "UVA20", "UVAUPC", "H"];										// global list - al
 
 //*** Verify if promo code can be used.
 function checkPromo() {
+
+	// Hide any error messages, then we can re-show them later if they are supposed to be there.
+	document.getElementById("charityError").style.visibility="hidden";				// hide the text
+	document.getElementById("promoError").style.visibility="hidden";				// hide the text
+
+	// If the charity radio button was selected, make sure the charity field has been filled out.
+	if(document.getElementById("Charity-purpose").checked) {
+		// if error text is hidden
+		if(document.getElementById("charityError").style.visibility="hidden") {
+			// Check if charity name was specified
+			if (document.getElementById("charityName").innerHTML == "") {					// If charity name is not filled out
+				document.getElementById("charityError").style.visibility="visible";			// show error message
+			}
+		}
+	}
+
 	var enteredPromo = document.getElementById("promo").value.toUpperCase();
 	var status = document.getElementById("promoError").style.visibility;
 
 	// if error text is hidden
-	if (status == "hidden") {	
+	if (status == "hidden") {
 
 		if (document.getElementById("submitButton").disabled) {
 			document.getElementById("submitButton").disabled="false";
 		}			// if disabled button
 
+		// TODO: get rid of this
 		if (pastPromo.includes(enteredPromo) && (enteredPromo.length >= 3)) {			// if promo already exists
 			document.getElementById("promoError").style.visibility="visible";			// show error message
 		}
 		else{																			// combo of letters isn't in list yet
-			//FUTURE: add promo code to database list if submit button is clicked
+			//TODO: add promo code to database list if submit button is clicked
 		}
-		
 	}
-	// if error text is already shown
-	else {
-		document.getElementById("promoError").style.visibility="hidden";				// hide the text
-		checkPromo();																	// call function again
-	}
-
-
 }
 
 

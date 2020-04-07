@@ -1,6 +1,6 @@
 <?php 
 $hostname = 'localhost:3306';
-$dbname = 'dbexample';
+$dbname = 'hoos_thrifting';
 $username = 'test';
 $password = 'test';
 

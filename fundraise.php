@@ -15,6 +15,12 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
+
+<?php
+require('connect-db.php');
+require('promo.php');
+?>
+
 <!--Source: Bootstrap Nav Bar from https://getbootstrap.com/docs/4.4/components/navbar/ -->   
 <header>
     <nav class="navbar navbar-default navbar-expand-md">
@@ -67,40 +73,24 @@
 
     <!--Fundraise Form-->
     <hr class="featurette-divider">
-    <form id="fundraise-form" onsubmit="confirmMessage()">
+    <form id="fundraise-form" action="<?php $_SERVER['PHP_SELF'] ?>" method="get" onsubmit="confirmMessage()">
         <div class="row">
-            <!--Contact Information-->
-            <div class="col-lg-3 form-group required">   
-                <label for="FName">Contact Name:</label><br>
-                <input class="form-control" id="FName" type="text" required placeholder="First Name" autofocus></input>
-            </div>
-            <div class="col-lg-3 form-group">   
-                <label>&nbsp;</dd></label><br>
-                <input class="form-control" id="LName" type="text" required placeholder="Last Name"></input>
-            </div>
-            <div class="col-lg-3 form-group required">   
-                <label for="Email">Contact Email:</label><br>
-                <input class="form-control" id="Email" type="email" required placeholder="your@email.com" ></input>
-            </div>
-            <div class="col-lg-3 form-group ">   
-                <label for="Number">Contact Number:</label><br>
-                <input class="form-control" id="Number" type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="(___)-___-____"></input>
-            </div>
             <!--Organization Information-->
             <div class="col-lg-3 form-group required">   
                 <label for="org">Organization (CIO):</label><br>
-                <input class="form-control" id="org" type="text" placeholder="Name" required></input>
+                <input class="form-control" id="org" name="cio" type="text" placeholder="Name" required></input>
             </div>
             <div class="col-lg-3 form-group required d-inline">   
                 <label for="CharityButton">Fundraising Purpose:</label><br>
-                <input type="radio" name="purpose" id="CIO-purpose" value="CIO" required><span id="choice"> <label for="CIO-purpose"> CIO</label> </span><br>
-                <input type="radio" name="purpose" id="Charity-purpose" value="CIO" required><span id="choice"> <label for="Charity-purpose"> Charity</label> </span>
-                
-            </div>
-            <div class="col-lg-6 form-group">   
-                <label for="description">Fundraising Description:</label><br>
-                <textarea class="form-control" id="description" rows=2 placeholder="Let everyone know what you're raising money for!"></textarea>
-            </div>
+                <input type="radio" name="purpose" id="CIO-purpose" value="CIO" required><span id="choice"> <label for="CIO-purpose"> Your CIO</label> </span><br>
+                <input type="radio" name="purpose" id="Charity-purpose" value="charity" required><span id="choice"> <label for="Charity-purpose"> Charity (please specify):</label> </span>
+                <input type="text" id="charityName" name="charity" value="">
+                <span>
+                    <div class="col-lg-4 d-inline pt-lg-2 form-group" id="charityError" style="visibility: hidden">
+                        <p id="charityErrorMessage" style="color: red; font-size: 14px;"> <br>Please fill out the name of the charity.</p>
+                    </div>
+                </span>
+            </div>            
             <!--Fundraising Information-->
             <div class="col-lg-3 form-group required">   
                 <label for="start">Start Date:</label><br>
@@ -113,17 +103,17 @@
             <!--Promo code Box-->
             <div class="col-lg-2 form-group required">   
                 <label for="promo">Promotional Code:</label><br>
-                <input onkeyup="checkPromo()" required type="text" id="promo" pattern="[A-Za-z0-9]{3,6}" placeholder="Min. 3 characters" minlength="3" maxlength="6" style="width: 150px">
+                <input onkeyup="checkPromo()" required type="text" id="promo" name="code" pattern="[A-Za-z0-9]{3,6}" placeholder="Min. 3 characters" minlength="3" maxlength="6" style="width: 150px">
             </div>
             <!--Promo code Validation-->
             <span>
             <div class="col-lg-4 d-inline pt-lg-2 form-group" id="promoError" style="visibility: hidden">
-                <p id="errorMessage" style="color: red; font-size: 14px;"> <br>Error. Code has been used before.</p>
+                <p id="errorMessage" style="color: red; font-size: 14px;"> <br>This code has been used before. Please try another code.</p>
             </div>
             </span>
             <!--Submit Button-->
             <div class="col-lg-12 form-group"> 
-                <button id="submitButton" type="submit" class="btn btn-primary" style="width:144px">Submit</button> 
+                <button id="submitButton" name="promo" type="submit" class="btn btn-primary" style="width:144px">Submit</button> 
             </div>
         </div>
     </form>
@@ -138,8 +128,9 @@
 
     
 <?php
-require('connect-db.php');
-require('promo.php')
+if(isset($_GET['promo']) && isset($_GET['cio']) && isset($_GET['purpose']) && isset($_GET['code'])) {
+    echo($_GET['purpose']);
+}
 ?>
 
 

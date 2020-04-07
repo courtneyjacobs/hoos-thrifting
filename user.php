@@ -2,13 +2,14 @@
 require('connect-db.php');
 
 // Inserts promo code into DB
-function createUser($username, $pass_hash, $first, $last) {
-    $query = "INSERT INTO user (username, pass, first, last) VALUES (:username, :pass_hash, :first, :last)";
+function createUser($username, $pass_hash, $first, $last, $email) {
+    $query = "INSERT INTO user (username, pass, first, last, email) VALUES (:username, :pass_hash, :first, :last, :email)";
     $statement = $db->prepare($query);
     $statement->bindValue(':username', $username);
     $statement->bindValue(':pass_hash', $pass_hash);
     $statement->bindValue(':first', $first);
     $statement->bindValue(':last', $last);
+    $statement->bindValue(':email', $email);
     $statement->execute();
     $statement->closeCursor();
 }

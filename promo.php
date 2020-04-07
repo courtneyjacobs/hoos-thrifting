@@ -4,7 +4,7 @@ require('connect-db.php');
 // Inserts promo code into DB
 function createPromoCode($code, $creatorID, $cio, $charity) {
     $query = "INSERT INTO promo (code, expire, creatorID, cio, charity) 
-        VALUES (:code, :creatorID, new DateTime("now"), :cio, :charity)";
+        VALUES (:code, :creatorID, new DateTime('now'), :cio, :charity)";
     $statement = $db->prepare($query);
     $statement->bindValue(':code', $code);
     $statement->bindValue(':creatorID', $creatorID);
@@ -36,7 +36,7 @@ function isPromoCodeExpired($code) {
     $now = new DateTime("now");
     foreach($results as $row){
         // Interval will be positive if expire date is in the past
-        $interval = date_diff($row->expire, $datetime2);  
+        $interval = date_diff($row->expire, $now);  
         $return (interval > 0);
     }
 }
