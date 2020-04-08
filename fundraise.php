@@ -14,13 +14,12 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel="stylesheet" href="main.css">
 </head>
-<body>
+<body onload="setCurrentDate()">
 
 <?php
 require('connect-db.php');
 require('promo.php');
 session_start();
-if(isset($_SESSION['user'])) {
 ?>
 
 <!--Source: Bootstrap Nav Bar from https://getbootstrap.com/docs/4.4/components/navbar/ -->   
@@ -37,7 +36,7 @@ if(isset($_SESSION['user'])) {
                 <li class="nav-item"><a href="fundraise.php" class="nav-link">Fundraise</a></li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href='<?php if(isset($_SESSION['user'])) echo "logout.php"; else echo "login.php"; ?>' class="nav-link"><?php if(isset($_SESSION['user'])) echo "Logout"; else echo "Log in or sign up"; ?></a></li>
+                <li class="nav-item"><a href='<?php if(isset($_SESSION['user'])) echo "logout.php"; else echo "login.php"; ?>' class="nav-link"><?php if(isset($_SESSION['user'])) echo "Log-out"; else echo "Log in or sign up"; ?></a></li>
                 <li class="nav-item"><a href="cart.php" class="nav-link"><i class="fas fa-shopping-cart"></i></a></li>
                 <li class="nav-item"><a href="profile.php" class="nav-link"><i class="fas fa-user"></i></a></li>
             </ul>        
@@ -74,30 +73,50 @@ if(isset($_SESSION['user'])) {
         </div>
     </div>
 
+    <!--REQUIRE USER TO BE LOGGED IN-->
+    <?php 
+    // if user is logged in
+    if(isset($_SESSION['user'])) {     
+        // do nothing; load the rest of the page
+    }
+    else {
+        echo '<div style="margin:0 auto; padding-top: 14px" align=center>';
+        echo '<form action="login.php">';
+        echo '   <button type="submit" style="width:200px; height:90px" class="btn btn-primary btn-success">Must be logged-in!</button>';
+        echo "</form>";
+        echo "</div>";
+
+        exit;       // don't display the rest of the page
+
+    }
+    ?>
+
+
+
     <!--Fundraise Form-->
-    <hr class="featurette-divider">
+    <hr class="featurette-divider" >
     <form id="fundraise-form" action="<?php $_SERVER['PHP_SELF'] ?>" method="get" onsubmit="confirmMessage()">
         <div class="row">
             <!--Organization Information-->
             <div class="col-lg-3 form-group required">   
                 <label for="org">Organization (CIO):</label><br>
-                <input class="form-control" id="org" name="cio" type="text" placeholder="Name" required></input>
+                <input class="form-control" id="org" name="cio" type="text" placeholder="Name" required autofocus></input>
             </div>
             <div class="col-lg-3 form-group required d-inline">   
                 <label for="CharityButton">Fundraising Purpose:</label><br>
-                <input type="radio" name="purpose" id="CIO-purpose" value="CIO" required><span id="choice"> <label for="CIO-purpose"> Your CIO</label> </span><br>
-                <input type="radio" name="purpose" id="Charity-purpose" value="charity" required><span id="choice"> <label for="Charity-purpose"> Charity (please specify):</label> </span>
-                <input type="text" id="charityName" name="charity" value="">
+                <input onchange="checkCharity()" type="radio" name="purpose" id="CIO-purpose" value="CIO" required><span id="choice"> <label for="CIO-purpose"> Your CIO</label> </span><br>
+                <input onchange="checkCharity()" type="radio" name="purpose" id="Charity-purpose" value="charity" required><span id="choice"> <label for="Charity-purpose"> Charity (please specify):</label> </span>
+                <input onchange="checkCharity()" type="text" id="charityName" name="charity" value="">
                 <span>
                     <div class="col-lg-4 d-inline pt-lg-2 form-group" id="charityError" style="visibility: hidden">
-                        <p id="charityErrorMessage" style="color: red; font-size: 14px;"> <br>Please fill out the name of the charity.</p>
+                        <p id="charityErrorMessage" style="color: red; font-size: 14px;"> Please fill out the name of the charity.</p>
                     </div>
                 </span>
             </div>            
             <!--Fundraising Information-->
             <div class="col-lg-3 form-group required">   
                 <label for="start">Start Date:</label><br>
-                <input required type="date" id="start" placeholder="YYYY-MM-DD" min="2020-02-27">
+                <input required type="date" id="start" min="2020-02-27">
             </div>
             <div class="col-lg-3 form-group required">   
                 <label for="end">End Date:</label><br>
@@ -128,7 +147,6 @@ if(isset($_SESSION['user'])) {
     </div>
 
 </div>
-
     
 <?php
 if(isset($_GET['promo']) && isset($_GET['cio']) && isset($_GET['purpose']) && isset($_GET['code'])) {
@@ -166,11 +184,7 @@ if(isset($_GET['promo']) && isset($_GET['cio']) && isset($_GET['purpose']) && is
     </div>
 </footer>
 
-<?php 
-} else {
-  header("Location: login.php");
-}
-?>
+
 
 </body>
 </html>

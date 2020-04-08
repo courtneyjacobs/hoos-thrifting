@@ -30,8 +30,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['first'] = $_POST['first'];
             $_SESSION['last'] = $_POST['last'];
             $_SESSION['email'] = $_POST['email'];            
-            $redir = 'http://localhost/hoos-thrifting/index.php';
+            $redir = 'index.php';
             header("Location: ". $redir);
+            //exit;
         }
         else {
             // TODO: more specific errors
@@ -48,8 +49,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['first'] = $_POST['first'];
                 $_SESSION['last'] = $_POST['last'];
                 $_SESSION['email'] = $_POST['email'];
-                $redir = 'http://localhost/hoos-thrifting/index.php';
+                $redir = 'index.php';
                 header("Location: ". $redir);
+                //exit;
             }
             else {
                 // TODO: more specific error
@@ -87,22 +89,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h1 class="display-4"><a href="cart.php">Login or Sign Up</a></h1>
     </div>
     <div class="row">
+        <!--Log-In-->
         <div class="col-5">
             <h2>Log in to an existing account</h2>
             <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
-              Username: <input type="text" name="username" class="form-control" autofocus required /> <br/>
+              Username: <input type="text" name="username" class="form-control" required /> <br/>
               Password: <input type="password" name="pwd" class="form-control" required /> <br/>
               <input type="submit" name="login" value="Log in" class="btn btn-light"  />   
               <p id="loginError" style="color: red; font-size: 14px;"> <br><?php if(isset($loginError)) echo $loginError?></p> 
             </form>
         </div>
+
+        <!--Sign-Up-->
         <div class="col-7">
             <h2>Sign up for a new account</h2>
             <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
-              First Name: <input type="text" name="first" class="form-control" required /> <br/>
+              First Name: <input type="text" name="first" class="form-control" autofocus required /> <br/>
               Last Name: <input type="text" name="last" class="form-control" required /> <br/>
-              Email: <input type="email" name="email" class="form-control" autofocus required /> <br/>
-              Username: <input type="text" name="username" class="form-control" autofocus required /> <br/>
+              Email: <input type="email" name="email" class="form-control" required /> <br/>
+              Username: <input type="text" name="username" class="form-control" required /> <br/>       
               Password: <input type="password" name="pwd" class="form-control" required /> <br/>
               <input type="submit" name="signup" value="Sign up" class="btn btn-light"/>  
               <p id="signupError" style="color: red; font-size: 14px;"> <br><?php if(isset($signupError)) echo $signupError?></p> 

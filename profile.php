@@ -48,11 +48,23 @@ if(isset($_SESSION['user'])) {
 <div class="container">
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
         <h1 class="display-4"><a href="profile.php">Profile</a></h1>
+        <!--Show Username-->
+        <?php 
+            echo '<p class="lead">Hello, ';
+            echo $_SESSION["user"] . "!";
+            echo '</p>';
+        ?>
+
     </div>
     <div class="row">
         
     </div>
 </div>
+
+
+
+
+
 
 
 <!--Footer-->

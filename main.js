@@ -121,25 +121,12 @@ var pastPromo = ["GOPUFF", "UVA20", "UVAUPC", "H"];										// global list - al
 function checkPromo() {
 
 	// Hide any error messages, then we can re-show them later if they are supposed to be there.
-	document.getElementById("charityError").style.visibility="hidden";				// hide the text
-	document.getElementById("promoError").style.visibility="hidden";				// hide the text
+	document.getElementById("promoError").style.visibility="hidden";						// hide the text
 
-	// If the charity radio button was selected, make sure the charity field has been filled out.
-	if(document.getElementById("Charity-purpose").checked) {
-		// if error text is hidden
-		if(document.getElementById("charityError").style.visibility="hidden") {
-			// Check if charity name was specified
-			if (document.getElementById("charityName").innerHTML == "") {					// If charity name is not filled out
-				document.getElementById("charityError").style.visibility="visible";			// show error message
-			}
-		}
-	}
-
-	var enteredPromo = document.getElementById("promo").value.toUpperCase();
-	var status = document.getElementById("promoError").style.visibility;
-
-	// if error text is hidden
-	if (status == "hidden") {
+	var enteredPromo = document.getElementById("promo").value.toUpperCase();			// standardize all codes to uppercase
+	var promoStatus = document.getElementById("promoError").style.visibility;
+	// if promo error text is hidden
+	if (promoStatus == "hidden") {
 
 		if (document.getElementById("submitButton").disabled) {
 			document.getElementById("submitButton").disabled="false";
@@ -153,6 +140,51 @@ function checkPromo() {
 			//TODO: add promo code to database list if submit button is clicked
 		}
 	}
+}
+
+//*** Ensure that a charity name has been inputted.
+function checkCharity() {
+
+	document.getElementById("charityError").style.visibility="hidden";						// hide the text
+	var charityStatus = document.getElementById("charityError").style.visibility;
+	var CIOchecked = document.getElementById("CIO-purpose").checked;
+	var charityChecked = document.getElementById("Charity-purpose").checked;
+
+	// if CIO checked
+	if (CIOchecked) {
+		// clear field of charity input
+		if (document.getElementById("charityName").value != "") {
+			document.getElementById("charityName").value = "";						// CLEAR TEXT FIELD 
+		}
+
+		// remove error message
+		if (charityStatus == "visible") {
+			document.getElementById("charityError").style.visibility="hidden";		// hide error
+		}
+
+	}
+	// if Charity checked
+	else if (charityChecked){
+		// check field for empty input, then show error
+		if (document.getElementById("charityName").value == "") {
+			document.getElementById("charityError").style.visibility="visible";			// show error
+		}
+		// if it's not empty
+		else {
+			document.getElementById("charityError").style.visibility="hidden";			// hide error
+		}
+
+	}
+
+}
+
+//*** Set default Start Date to the current date.
+// Source: https://css-tricks.com/prefilling-date-input/
+function setCurrentDate() {
+	//alert("hello");
+	let today = new Date().toISOString().substr(0, 10);
+	document.querySelector("#start").value = today;
+	document.getElementById("start").min = today;
 }
 
 
