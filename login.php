@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cart</title>
+    <title>Log In</title>
     <!-- <link rel="stylesheet" href="reset.css"> -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -46,17 +46,16 @@ require('user.php');
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
         <h1 class="display-4"><a href="cart.php">Login or Sign Up</a></h1>
     </div>
+    <h2>Log in to an existing account</h2>
     <div class="row">
-        <h1>Log in to an existing account</h1>
         <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
           Username: <input type="text" name="username" class="form-control" autofocus required /> <br/>
           Password: <input type="password" name="pwd" class="form-control" required /> <br/>
           <input type="submit" name="login" value="Sign in" class="btn btn-light"  />   
         </form>
     </div>
-
+    <h2>Sign up for a new account</h2>
     <div class="row">
-        <h1>Sign up for a new account</h1>
         <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
           First Name: <input type="text" name="first" class="form-control" required /> <br/>
           Last Name: <input type="text" name="last" class="form-control" required /> <br/>
@@ -71,11 +70,12 @@ require('user.php');
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // login
-    if(!empty($_POST['login']) && !empty($_POST['username']) && !empty($_POST['password'])) {
-        if(authenticate($_POST['username'], $_POST['password'])) {
+    if(!empty($_POST['login']) && !empty($_POST['username']) && !empty($_POST['pwd'])) {
+        if(authenticate($_POST['username'], $_POST['pwd'])) {
             // redirect to home page and log in by starting session
             session_start();
-            $redir = 'http://localhost/hoos-thrifting/index.html';
+            $_SESSION['user'] = $_POST['username'];
+            $redir = 'http://localhost/hoos-thrifting/index.php';
             header("Location: ". $redir);
         }
         else {
@@ -84,13 +84,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
     // signup
-    if(!empty($_POST['signup']) && !empty($_POST['first']) && !empty($_POST['last']) && !empty($_POST['email']) && !empty($_POST['username']) && !empty($_POST['password'])) {
+    if(!empty($_POST['signup']) && !empty($_POST['first']) && !empty($_POST['last']) && !empty($_POST['email']) && !empty($_POST['username']) && !empty($_POST['pwd'])) {
         if(!doesUserExist($_POST['username'])) {
-            if(createUser($_POST['username'], $_POST['pass'], $_POST['first'], $_POST['last'], $_POST['email'])) {
+            if(createUser($_POST['username'], $_POST['pwd'], $_POST['first'], $_POST['last'], $_POST['email'])) {
                 // redirect to home page and log in by starting session
                 session_start();
                 $_SESSION['user'] = $_POST['username'];
-                $redir = 'http://localhost/hoos-thrifting/index.html';
+                $redir = 'http://localhost/hoos-thrifting/index.php';
                 header("Location: ". $redir);
             }
             else {
