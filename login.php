@@ -18,6 +18,46 @@
 <?php
 require('connect-db.php');
 require('user.php');
+session_start();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // login
+    if(!empty($_POST['login']) && !empty($_POST['username']) && !empty($_POST['pwd'])) {
+        if(authenticate($_POST['username'], $_POST['pwd'])) {
+            // redirect to home page and log in by starting session
+            session_start();
+            $_SESSION['user'] = $_POST['username'];
+            $_SESSION['first'] = $_POST['first'];
+            $_SESSION['last'] = $_POST['last'];
+            $_SESSION['email'] = $_POST['email'];            
+            $redir = 'http://localhost/hoos-thrifting/index.php';
+            header("Location: ". $redir);
+        }
+        else {
+            // TODO: more specific errors
+            $loginError = "There was a problem logging you in. Please try again.";
+        }
+    }
+    // signup
+    if(!empty($_POST['signup']) && !empty($_POST['first']) && !empty($_POST['last']) && !empty($_POST['email']) && !empty($_POST['username']) && !empty($_POST['pwd'])) {
+        if(!doesUserExist($_POST['username'])) {
+            if(createUser($_POST['username'], $_POST['pwd'], $_POST['first'], $_POST['last'], $_POST['email'])) {
+                // redirect to home page and log in by starting session
+                session_start();
+                $_SESSION['user'] = $_POST['username'];
+                $_SESSION['first'] = $_POST['first'];
+                $_SESSION['last'] = $_POST['last'];
+                $_SESSION['email'] = $_POST['email'];
+                $redir = 'http://localhost/hoos-thrifting/index.php';
+                header("Location: ". $redir);
+            }
+            else {
+                // TODO: more specific error
+                $signupError = "There was a problem creating your account. Please try again.";
+            }
+        }
+    }   
+}
 ?>
 
 <!--Source: Bootstrap Nav Bar from https://getbootstrap.com/docs/4.4/components/navbar/ -->   
@@ -46,61 +86,30 @@ require('user.php');
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
         <h1 class="display-4"><a href="cart.php">Login or Sign Up</a></h1>
     </div>
-    <h2>Log in to an existing account</h2>
     <div class="row">
-        <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
-          Username: <input type="text" name="username" class="form-control" autofocus required /> <br/>
-          Password: <input type="password" name="pwd" class="form-control" required /> <br/>
-          <input type="submit" name="login" value="Sign in" class="btn btn-light"  />   
-        </form>
-    </div>
-    <h2>Sign up for a new account</h2>
-    <div class="row">
-        <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
-          First Name: <input type="text" name="first" class="form-control" required /> <br/>
-          Last Name: <input type="text" name="last" class="form-control" required /> <br/>
-          Email: <input type="email" name="email" class="form-control" autofocus required /> <br/>
-          Username: <input type="text" name="username" class="form-control" autofocus required /> <br/>
-          Password: <input type="password" name="pwd" class="form-control" required /> <br/>
-          <input type="submit" name="signup" value="Sign in" class="btn btn-light"/>   
-        </form>
+        <div class="col-5">
+            <h2>Log in to an existing account</h2>
+            <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+              Username: <input type="text" name="username" class="form-control" autofocus required /> <br/>
+              Password: <input type="password" name="pwd" class="form-control" required /> <br/>
+              <input type="submit" name="login" value="Log in" class="btn btn-light"  />   
+              <p id="loginError" style="color: red; font-size: 14px;"> <br><?php if(isset($loginError)) echo $loginError?></p> 
+            </form>
+        </div>
+        <div class="col-7">
+            <h2>Sign up for a new account</h2>
+            <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+              First Name: <input type="text" name="first" class="form-control" required /> <br/>
+              Last Name: <input type="text" name="last" class="form-control" required /> <br/>
+              Email: <input type="email" name="email" class="form-control" autofocus required /> <br/>
+              Username: <input type="text" name="username" class="form-control" autofocus required /> <br/>
+              Password: <input type="password" name="pwd" class="form-control" required /> <br/>
+              <input type="submit" name="signup" value="Sign up" class="btn btn-light"/>  
+              <p id="signupError" style="color: red; font-size: 14px;"> <br><?php if(isset($signupError)) echo $signupError?></p> 
+            </form>
+        </div>
     </div>
 </div>
-
-<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // login
-    if(!empty($_POST['login']) && !empty($_POST['username']) && !empty($_POST['pwd'])) {
-        if(authenticate($_POST['username'], $_POST['pwd'])) {
-            // redirect to home page and log in by starting session
-            session_start();
-            $_SESSION['user'] = $_POST['username'];
-            $redir = 'http://localhost/hoos-thrifting/index.php';
-            header("Location: ". $redir);
-        }
-        else {
-            // TODO: more specific errors
-            echo("There was a problem logging you in. Please try again.");
-        }
-    }
-    // signup
-    if(!empty($_POST['signup']) && !empty($_POST['first']) && !empty($_POST['last']) && !empty($_POST['email']) && !empty($_POST['username']) && !empty($_POST['pwd'])) {
-        if(!doesUserExist($_POST['username'])) {
-            if(createUser($_POST['username'], $_POST['pwd'], $_POST['first'], $_POST['last'], $_POST['email'])) {
-                // redirect to home page and log in by starting session
-                session_start();
-                $_SESSION['user'] = $_POST['username'];
-                $redir = 'http://localhost/hoos-thrifting/index.php';
-                header("Location: ". $redir);
-            }
-            else {
-                // TODO: more specific error
-                echo("There was a problem creating your account. Please try again.");
-            }
-        }
-    }   
-}
-?>
 
 <!--Footer-->
 <footer class="page-footer">

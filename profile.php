@@ -18,7 +18,9 @@
     
 <?php
 require('connect-db.php');
-require('user.php')
+require('user.php');
+session_start();
+if(isset($_SESSION['user'])) {
 ?>
 
 <!--Source: Bootstrap Nav Bar from https://getbootstrap.com/docs/4.4/components/navbar/ -->   
@@ -81,6 +83,12 @@ require('user.php')
         <small>&copy; 2020 AV/CJ</small>
     </div>
 </footer>
+
+<?php 
+} else {
+  header("Location: login.php");
+}
+?>
 
 </body>
 </html>

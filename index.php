@@ -19,6 +19,7 @@
   
 <?php
 require('connect-db.php');
+session_start();
 ?>
   
 <!--Source: Bootstrap Nav Bar from https://getbootstrap.com/docs/4.4/components/navbar/ -->   
@@ -35,7 +36,7 @@ require('connect-db.php');
                 <li class="nav-item"><a href="fundraise.php" class="nav-link">Fundraise</a></li>
             </ul>
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item"><a href='<?php if(isset($_SESSION['user'])) echo "logout.php"; else echo "login.php"; ?>' class="nav-link"><?php if(isset($_SESSION['user'])) echo "Logout"; else echo "Log in or sign up"; ?></a></li>
+              <li class="nav-item"><a href='<?php if (isset($_SESSION['user'])) echo "logout.php"; else echo "login.php" ?>' class="nav-link"><?php if (isset($_SESSION['user'])) echo "Log out"; else echo "Log in or sign up"; ?></a></li>
               <li class="nav-item"><a href="cart.php" class="nav-link"><i class="fas fa-shopping-cart"></i></a></li>
               <li class="nav-item"><a href="profile.php" class="nav-link"><i class="fas fa-user"></i></a></li>
             </ul>        

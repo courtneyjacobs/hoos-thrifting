@@ -18,6 +18,7 @@
 
 <?php
 require('connect-db.php');
+session_start();
 ?>
 
 <!--Source: Bootstrap Nav Bar from https://getbootstrap.com/docs/4.4/components/navbar/ -->   
@@ -113,5 +114,6 @@ require('connect-db.php');
         <small>&copy; 2020 AV/CJ</small>
     </div>
 </footer>
+
 </body>
 </html>

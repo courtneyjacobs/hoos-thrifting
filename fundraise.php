@@ -19,6 +19,7 @@
 <?php
 require('connect-db.php');
 require('promo.php');
+session_start();
 if(isset($_SESSION['user'])) {
 ?>
 
