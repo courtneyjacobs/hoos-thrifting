@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="author" content="Courtney Jacobs">
+    <meta name="author" content="Courtney Jacobs; Amara Vo">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sell</title>
@@ -19,6 +19,7 @@
     
 <?php
 require('connect-db.php');
+require('sell-db.php');
 session_start();
 ?>
 
@@ -47,72 +48,80 @@ session_start();
 <div class="container">
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
         <h1 class="display-4"><a href="sell.php">Sell</a></h1>
+        
         <!--Show Info If Guest--> <!--REQUIRE USER TO BE LOGGED IN-->
         <?php 
             // if user not logged in
             if(!isset($_SESSION['user'])) {     
                 echo '<p class="lead">Selling is easy! Make sure to log in. </p> </div>';
-
-                
-                echo '<div style="margin:0 auto; padding-top: 14px" align=center>';
+                echo '<div style="margin:0 auto; padding-top: 5px; padding-bottom: 40px" align=center>';
                 echo '<form action="login.php">';
                 echo '   <button type="submit" style="width:200px; height:90px" class="btn btn-primary btn-success">Must be logged-in!</button>';
                 echo "</form>";
                 echo "</div>";
-
-                //exit;       // don't display the rest of the page
-
             }
             // user is logged in
             else {
 
         ?>
 
-    <div class="row">
+        <!--Insert Items into Database-->
+        <?php
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            // if the required fields are NOT empty: category, size, condition, price
+            if (!empty($_POST['ctg']) && !empty($_POST['size']) && !empty($_POST['cond']) && !empty($_POST['price'])) {
+                // insert into database
+                addSellItem($_SESSION['userId'], $_POST['ctg'], $_POST['brand'], $_POST['size'], $_POST['color'], $_POST['cond'], $_POST['desc'], $_POST['price']);
+            }
+
+        }
+        ?>
+
+    <div id="sellForm" class="row" style="visibility: visible">
         <!--Upload Button-->
         <div class="col-lg-4">
             <img class="rounded mx-auto d-block" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/OOjs_UI_icon_upload-ltr.svg/1024px-OOjs_UI_icon_upload-ltr.svg.png" alt="Upload Icon" style="width:150px;height:150px;" class="center" >
         </div>
 
         <div class="col-lg-8">
+            <!--BEGIN FORM-->
             <!--Source: Bootstrap form from https://www.w3schools.com/bootstrap/bootstrap_forms.asp -->
-            <form id="sell-form" action="" method="post" onsubmit="populate(); return false;">
+            <form id="sell-form" action="<?php $_SERVER['PHP_SELF'] ?>" method="POST">
                 <!--Category Selection-->
-                <div class="form-group" >
-                    <label class="col-sm-12" style="display:inline-block; text-align:left;" for="category">Category:</label>
+                <div class="form-group required">
+                    <label class="col-sm-12" style="display:inline-block; text-align:left;" for="ctg">Category:</label>
                     <div class="col-sm-8"> 
-                        <select class="form-control" id="category">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                        <select class="form-control" id="category" name="ctg" required>
+                            <option disabled selected value> -- select a category -- </option>
+                            <option value="1">Tops</option>
+                            <option value="2">Bottoms</option>
+                            <option value="3">Shoes</option>
+                            <option value="4">Accessories</option>
+                            <option value="5">Other</option>
                         </select>
                     </div>
                 </div>
                 <!--Brand Selection-->
-                <div class="form-group">
+                <div class="form-group">   
                     <label class="col-sm-12" style="display:inline-block; text-align:left;" for="brand">Brand:</label>
-                    <div class="col-sm-8">          
-                        <select class="form-control" id="brand">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
+                    <div class="col-sm-8">
+                        <input class="col-sm-12" type="text" id="brandBox" name="brand"> 
                     </div>
                 </div>
                 <!--Size Selection-->
-                <div class="form-group">
+                <div class="form-group required">
                     <label class="col-sm-12" style="display:inline-block; text-align:left;" for="size">Size:</label>
                     <div class="col-sm-8">          
-                        <select class="form-control" id="size">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                        <select class="form-control" id="size" name="size" required>
+                            <option disabled selected value> -- select a size -- </option>
+                            <option value="1">No Size</option>
+                            <option value="2">XS (00-1)</option>
+                            <option value="3">S (2-4)</option>
+                            <option value="4">M (5-7)</option>
+                            <option value="5">L (8-10)</option>
+                            <option value="6">XL (11-14)</option>
                         </select>
                     </div>
                 </div>
@@ -120,34 +129,34 @@ session_start();
                 <div class="form-group">
                     <label class="col-sm-12" style="display:inline-block; text-align:left;" for="color">Color:</label>
                     <div class="col-sm-8">          
-                        <select class="form-control" id="color">
-                            <option>White</option>
-                            <option>Black</option>
-                            <option>Gray</option>
-                            <option>Brown</option>
-                            <option>Cream/Beige</option>
-                            <option>Tan</option>
-                            <option>Gold</option>
-                            <option>Silver</option>
-                            <option>Red</option>
-                            <option>Orange</option>
-                            <option>Yellow</option>
-                            <option>Green</option>
-                            <option>Blue</option>
-                            <option>Purple</option>
+                        <select class="form-control" id="color" name="color">
+                            <option value="0" selected></option>
+                            <option value="1">Black</option>
+                            <option value="2">Blue</option>
+                            <option value="3">Brown</option>
+                            <option value="4">Cream</option>
+                            <option value="5">Gray</option>
+                            <option value="6">Green</option>
+                            <option value="7">Orange</option>
+                            <option value="8">Pink</option>
+                            <option value="9">Purple</option>
+                            <option value="10">Red</option>
+                            <option value="11">Yellow</option>
+                            <option value="12">White</option>
                         </select>
                     </div>
                 </div>
                 <!--Condition Selection-->
-                <div class="form-group">
-                    <label class="col-sm-12" style="display:inline-block; text-align:left;" for="condition">Condition:</label>
+                <div class="form-group required">
+                    <label class="col-sm-12" style="display:inline-block; text-align:left;" for="cond">Condition:</label>
                     <div class="col-sm-8">          
-                        <select class="form-control" id="condition">
-                            <option>New</option>
-                            <option>Like New</option>
-                            <option>Good</option>
-                            <option>Fair</option>
-                            <option>Poor</option>
+                        <select class="form-control" id="condition" name="cond" required>
+                            <option disabled selected value> -- select a condition -- </option>
+                            <option value="1">New</option>
+                            <option value="2">Like New</option>
+                            <option value="3">Good</option>
+                            <option value="4">Fair</option>
+                            <option value="5">Poor</option>
                         </select>
                     </div>
                 </div>
@@ -155,16 +164,18 @@ session_start();
                 <div class="form-group">   
                     <label class="col-sm-12" style="display:inline-block; text-align:left;" for="desc">Description:</label>
                     <div class="col-sm-8">
-                        <textarea class="form-control" id="desc" maxlength="250"></textarea>
+                        <textarea class="form-control" id="desc" name="desc" maxlength="250"></textarea>
                     </div>
                 </div>
                 <!--Pricing-->
-                <div class="form-group">
+                <div class="form-group required">
                     <label class="col-sm-12" style="display:inline-block; text-align:left;" for="price">Price:</label>
                     <div class="col-3">
-                        <input class="form-control"  id="price" type="number" step="0.01" min="1" max="1000" required onchange="validPrice()"></input>
-                        <small style="color: red" id="youearnError"></small><br>
+                        <input class="form-control"  id="price" name="price" type="number" step="0.01" min="1" max="1000" required onchange="validPrice()"></input>
+                        <small style="color: red" id="youearnError"></small>
                     </div> 
+                </div>
+                <div class="form-group"> 
                     <label class="col-sm-12" style="display:inline-block; text-align:left;" for="youearn">You Will Earn:</label>
                     <div class="col-3">
                         <input disabled="true" class="form-control"  id="youearn" ></input>
@@ -188,6 +199,11 @@ session_start();
     }
     echo "</div>";
 ?>
+
+
+
+
+
 
 <!--Footer-->
 <footer class="page-footer">

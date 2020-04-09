@@ -58,7 +58,6 @@ session_start();
                 <div class="form-group required">   
 	                <label for="FName">First Name:</label><br>
 	                <input class="form-control" id="FName" type="text" required placeholder="First Name" autofocus></input>
-
 	            </div>
 	     		<div class="form-group required"> 
 	                <label for="LName">Last Name:</label><br>

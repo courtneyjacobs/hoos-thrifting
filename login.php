@@ -88,12 +88,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </nav>
 </header>  
 
+
 <div class="container">
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
         <h1 class="display-4"><a href="cart.php">Login or Sign Up</a></h1>
     </div>
     <div class="row">
-        <!--Log-In-->
+        <!--Log-In Form-->
         <div class="col-5">
             <h2>Log in to an existing account</h2>
             <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
@@ -104,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>
         </div>
 
-        <!--Sign-Up-->
+        <!--Sign-Up Form-->
         <div class="col-7">
             <h2>Sign up for a new account</h2>
             <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">

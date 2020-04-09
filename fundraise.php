@@ -73,12 +73,25 @@ session_start();
         </div>
     </div>
 
-    <!--REQUIRE USER TO BE LOGGED IN-->
-    <?php 
-    // if user is logged in
-    if(isset($_SESSION['user'])) {
-    
-    ?>
+       <!--Show Info If Guest--> <!--REQUIRE USER TO BE LOGGED IN-->
+       <?php 
+            // if user not logged in
+            if(!isset($_SESSION['user'])) {     
+                echo '</div>';
+                echo '<div style="margin:0 auto; padding-top: 5px; padding-bottom: 40px" align=center>';
+                echo '<form action="login.php">';
+                echo '   <button type="submit" style="width:200px; height:90px" class="btn btn-primary btn-success">Must be logged-in!</button>';
+                echo "</form>";
+                echo "</div>";
+
+                //exit;       // don't display the rest of the page
+
+            }
+            // user is logged in
+            else {
+
+        ?>
+
 
     <!--Promo Validation-->
     <?php
@@ -200,18 +213,11 @@ session_start();
     </div>
 
 </div>
-    
 
-<?php } else {
-
-    echo '<div style="margin:0 auto; padding-top: 14px" align=center>';
-    echo '<form action="login.php">';
-    echo '   <button type="submit" style="width:200px; height:90px" class="btn btn-primary btn-success">Must be logged-in!</button>';
-    echo "</form>";
+<?php
+    }
     echo "</div>";
-} ?>
-
-
+?>
 
 <!--Footer-->
 <footer class="page-footer">
