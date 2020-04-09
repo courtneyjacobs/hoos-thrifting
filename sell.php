@@ -20,7 +20,6 @@
 <?php
 require('connect-db.php');
 session_start();
-if(isset($_SESSION['user'])) {
 ?>
 
 <!--Source: Bootstrap Nav Bar from https://getbootstrap.com/docs/4.4/components/navbar/ -->   
@@ -48,8 +47,27 @@ if(isset($_SESSION['user'])) {
 <div class="container">
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
         <h1 class="display-4"><a href="sell.php">Sell</a></h1>
-    </div>
-    
+        <!--Show Info If Guest--> <!--REQUIRE USER TO BE LOGGED IN-->
+        <?php 
+            // if user not logged in
+            if(!isset($_SESSION['user'])) {     
+                echo '<p class="lead">Selling is easy! Make sure to log in. </p> </div>';
+
+                
+                echo '<div style="margin:0 auto; padding-top: 14px" align=center>';
+                echo '<form action="login.php">';
+                echo '   <button type="submit" style="width:200px; height:90px" class="btn btn-primary btn-success">Must be logged-in!</button>';
+                echo "</form>";
+                echo "</div>";
+
+                //exit;       // don't display the rest of the page
+
+            }
+            // user is logged in
+            else {
+
+        ?>
+
     <div class="row">
         <!--Upload Button-->
         <div class="col-lg-4">
@@ -57,12 +75,12 @@ if(isset($_SESSION['user'])) {
         </div>
 
         <div class="col-lg-8">
-            <div class="page-content">
             <!--Source: Bootstrap form from https://www.w3schools.com/bootstrap/bootstrap_forms.asp -->
-            <form id="sell-form" class="form-horizontal" action="" method="post" onsubmit="populate(); return false;">
+            <form id="sell-form" action="" method="post" onsubmit="populate(); return false;">
+                <!--Category Selection-->
                 <div class="form-group" >
-                    <label class="control-label col-sm-2" for="category">Category:</label>
-                    <div class="col-sm-8">          
+                    <label class="col-sm-12" style="display:inline-block; text-align:left;" for="category">Category:</label>
+                    <div class="col-sm-8"> 
                         <select class="form-control" id="category">
                             <option>1</option>
                             <option>2</option>
@@ -74,7 +92,7 @@ if(isset($_SESSION['user'])) {
                 </div>
                 <!--Brand Selection-->
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="brand">Brand:</label>
+                    <label class="col-sm-12" style="display:inline-block; text-align:left;" for="brand">Brand:</label>
                     <div class="col-sm-8">          
                         <select class="form-control" id="brand">
                             <option>1</option>
@@ -87,7 +105,7 @@ if(isset($_SESSION['user'])) {
                 </div>
                 <!--Size Selection-->
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="size">Size:</label>
+                    <label class="col-sm-12" style="display:inline-block; text-align:left;" for="size">Size:</label>
                     <div class="col-sm-8">          
                         <select class="form-control" id="size">
                             <option>1</option>
@@ -100,7 +118,7 @@ if(isset($_SESSION['user'])) {
                 </div>
                 <!--Color Selection-->
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="color">Color:</label>
+                    <label class="col-sm-12" style="display:inline-block; text-align:left;" for="color">Color:</label>
                     <div class="col-sm-8">          
                         <select class="form-control" id="color">
                             <option>White</option>
@@ -122,7 +140,7 @@ if(isset($_SESSION['user'])) {
                 </div>
                 <!--Condition Selection-->
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="condition">Condition:</label>
+                    <label class="col-sm-12" style="display:inline-block; text-align:left;" for="condition">Condition:</label>
                     <div class="col-sm-8">          
                         <select class="form-control" id="condition">
                             <option>New</option>
@@ -135,26 +153,26 @@ if(isset($_SESSION['user'])) {
                 </div>
                 <!--Description-->
                 <div class="form-group">   
-                    <label class="control-label col-sm-2" for="desc">Description:</label>
+                    <label class="col-sm-12" style="display:inline-block; text-align:left;" for="desc">Description:</label>
                     <div class="col-sm-8">
                         <textarea class="form-control" id="desc" maxlength="250"></textarea>
                     </div>
                 </div>
                 <!--Pricing-->
                 <div class="form-group">
-                    <label class="control-label col-sm-2 d-inline" for="price">Price:</label>
+                    <label class="col-sm-12" style="display:inline-block; text-align:left;" for="price">Price:</label>
                     <div class="col-3">
                         <input class="form-control"  id="price" type="number" step="0.01" min="1" max="1000" required onchange="validPrice()"></input>
                         <small style="color: red" id="youearnError"></small><br>
                     </div> 
+                    <label class="col-sm-12" style="display:inline-block; text-align:left;" for="youearn">You Will Earn:</label>
                     <div class="col-3">
-                        <label class="control-label" for="youearn">You Will Earn:</label>
                         <input disabled="true" class="form-control"  id="youearn" ></input>
                     </div>
                 </div>
                 <!--List Item-->
                 <div class="form-group">        
-                    <div class="col-sm-offset-2 col-sm-10">
+                    <div class="col-sm-12" style="display:inline-block; text-align:left;">
                         <button type="submit" class="btn btn-secondary">List Item</button>
                     </div>
                 </div>
@@ -163,9 +181,13 @@ if(isset($_SESSION['user'])) {
             <div id="createdItems">
             </div>
             </div>
-        </div>
+        
     </div>
 </div>
+<?php
+    }
+    echo "</div>";
+?>
 
 <!--Footer-->
 <footer class="page-footer">
@@ -195,12 +217,6 @@ if(isset($_SESSION['user'])) {
         <small>&copy; 2020 AV/CJ</small>
     </div>
 </footer>
-
-<?php 
-} else {
-  header("Location: login.php");
-}
-?>
 
 </body>
 </html>

@@ -23,10 +23,12 @@ session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // login
     if(!empty($_POST['login']) && !empty($_POST['username']) && !empty($_POST['pwd'])) {
-        if(authenticate($_POST['username'], $_POST['pwd'])) {
+        $userId = authenticate($_POST['username'], $_POST['pwd']);
+        if($userId > -1) {
             // redirect to home page and log in by starting session
             session_start();
             $_SESSION['user'] = $_POST['username'];
+            $_SESSION['userId'] = $userId;
             $_SESSION['first'] = $_POST['first'];
             $_SESSION['last'] = $_POST['last'];
             $_SESSION['email'] = $_POST['email'];            
@@ -42,10 +44,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // signup
     if(!empty($_POST['signup']) && !empty($_POST['first']) && !empty($_POST['last']) && !empty($_POST['email']) && !empty($_POST['username']) && !empty($_POST['pwd'])) {
         if(!doesUserExist($_POST['username'])) {
-            if(createUser($_POST['username'], $_POST['pwd'], $_POST['first'], $_POST['last'], $_POST['email'])) {
+            $userId = createUser($_POST['username'], $_POST['pwd'], $_POST['first'], $_POST['last'], $_POST['email']);
+            if($userId > -1) {
                 // redirect to home page and log in by starting session
                 session_start();
                 $_SESSION['user'] = $_POST['username'];
+                $_SESSION['userId'] = $userId;
                 $_SESSION['first'] = $_POST['first'];
                 $_SESSION['last'] = $_POST['last'];
                 $_SESSION['email'] = $_POST['email'];

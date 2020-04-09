@@ -90,17 +90,21 @@ function confirmMessage() {
 		document.getElementById("Confirm-Submission").style.display="block";
 	}
 
+	/*
 	// fundraise form
 	if (document.getElementById("fundraise-form")){	
 
-		// if charity field is empty
-		if (document.getElementById("charityError").style.visibility == "visible") {
-			event.preventDefault();															// prevents form from submitting
-			document.getElementById("charityName").focus();		
-		}
-		// if promo is invalid
-		else if (document.getElementById("promoError").style.visibility == "visible") {
-			event.preventDefault();															// prevents form from submitting
+		// if charity field is empty, then charity error is visible
+		//if (document.getElementById("charityError").style.visibility="visible") {
+		//	event.preventDefault();															// prevents form from submitting
+		//	document.getElementById("charityName").focus();		
+		//}
+		// if promo is invalid, promo error is NOT empty
+		//else 
+		
+		// if promoError is not shown 
+		if (document.getElementById("promoError").innerHTML != "") {
+			event.preventDefault();															// focus on box, prevents form from submitting
 			document.getElementById("promo").focus();		
 		}
 		else {
@@ -110,6 +114,7 @@ function confirmMessage() {
 			document.getElementById("Confirm-Text").innerHTML = "Thank you, good luck with your fundraiser!";
 		}
 	}
+	*/
 }
 
 /*
@@ -121,26 +126,13 @@ var pastPromo = ["GOPUFF", "UVA20", "UVAUPC", "H"];										// global list - al
 function checkPromo() {
 
 	// Hide any error messages, then we can re-show them later if they are supposed to be there.
-	document.getElementById("promoError").style.visibility="hidden";						// hide the text
+	//document.getElementById("promoError").style.visibility="hidden";						// hide the text
 
 	var enteredPromo = document.getElementById("promo").value.toUpperCase();			// standardize all codes to uppercase
 	var promoStatus = document.getElementById("promoError").style.visibility;
-	// if promo error text is hidden
-	if (promoStatus == "hidden") {
 
-		if (document.getElementById("submitButton").disabled) {
-			document.getElementById("submitButton").disabled="false";
-		}			// if disabled button
-
-		// TODO: get rid of this
-		if (pastPromo.includes(enteredPromo) && (enteredPromo.length >= 3)) {			// if promo already exists
-			document.getElementById("promoError").style.visibility="visible";			// show error message
-		}
-		else{																			// combo of letters isn't in list yet
-			//TODO: add promo code to database list if submit button is clicked
-		}
-	}
 }
+
 
 //*** Ensure that a charity name has been inputted.
 function checkCharity() {
@@ -154,12 +146,12 @@ function checkCharity() {
 	if (CIOchecked) {
 		// clear field of charity input
 		if (document.getElementById("charityName").value != "") {
-			document.getElementById("charityName").value = "";						// CLEAR TEXT FIELD 
+			document.getElementById("charityName").value = "";								// CLEAR TEXT FIELD 
 		}
 
 		// remove error message
 		if (charityStatus == "visible") {
-			document.getElementById("charityError").style.visibility="hidden";		// hide error
+			document.getElementById("charityError").style.visibility="hidden";				// hide error
 		}
 
 	}
@@ -167,11 +159,11 @@ function checkCharity() {
 	else if (charityChecked){
 		// check field for empty input, then show error
 		if (document.getElementById("charityName").value == "") {
-			document.getElementById("charityError").style.visibility="visible";			// show error
+			document.getElementById("charityError").style.visibility="visible";				// show error
 		}
 		// if it's not empty
 		else {
-			document.getElementById("charityError").style.visibility="hidden";			// hide error
+			document.getElementById("charityError").style.visibility="hidden";				// hide error
 		}
 
 	}

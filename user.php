@@ -17,7 +17,19 @@ function createUser($username, $pass, $first, $last, $email) {
     $statement->bindValue(':email', $email);
     $statement->execute();
     $statement->closeCursor();
-    return true;
+
+    $query = "SELECT id FROM user WHERE username=:username";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':username', $username); 
+    $statement->execute();
+    $result = $statement->fetchAll();
+    $statement->closeCursor();
+    if(count($result) > 0) {
+
+        // correct pass
+        return $result[0]['id'];
+    }
+    return -1;
 }
 
 // Returns true if a user with the given username exists, false otherwise
@@ -37,16 +49,19 @@ function doesUserExist($username) {
 function authenticate($username, $pass) {
     global $db;
 
-    $query = "SELECT pass FROM user WHERE username=:username";
+    $query = "SELECT id, pass FROM user WHERE username=:username";
     $statement = $db->prepare($query);
     $statement->bindValue(':username', $username); 
     $statement->execute();
     $hash = $statement->fetchAll();
     $statement->closeCursor();
     if(count($hash) > 0) {
-        return password_verify($pass, $hash[0]['pass']);
+        // correct pass
+        if(password_verify($pass, $hash[0]['pass'])) {
+            return $hash[0]['id'];
+        }
     }
-    return false;
+    return -1;
 }
  
 // Returns all information for a user with given id

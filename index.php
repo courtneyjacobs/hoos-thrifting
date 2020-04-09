@@ -60,7 +60,7 @@ session_start();
       </div>
       <div class="card-body">
         <p> Some text about shopping... </p>
-        <button type="button" class="btn btn-lg btn-block btn-success">Start Shopping</button>
+        <button type="button" class="btn btn-lg btn-block btn-success" onclick="window.location.href = 'shop.php';">Start Shopping</button>
       </div>
     </div>
     <div class="card mb-4 shadow-sm">
@@ -69,7 +69,7 @@ session_start();
       </div>
       <div class="card-body">
         <p> Some text about selling... </p>
-        <button type="button" class="btn btn-lg btn-block btn-success">List an Item</button>
+        <button type="button" class="btn btn-lg btn-block btn-success" onclick="window.location.href = 'sell.php';">List an Item</button>
       </div>
     </div>
     <div class="card mb-4 shadow-sm">
@@ -78,7 +78,7 @@ session_start();
       </div>
       <div class="card-body">
         <p> Some text about fundraising... </p>
-        <button type="button" class="btn btn-lg btn-block btn-success">Start a Fundraiser</button>
+        <button type="button" class="btn btn-lg btn-block btn-success" onclick="window.location.href = 'fundraise.php';">Start a Fundraiser</button>
       </div>
     </div>
     </div>
