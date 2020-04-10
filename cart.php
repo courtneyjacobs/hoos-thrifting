@@ -83,7 +83,8 @@ if(isset($_SESSION['user'])) {
 
 <?php 
 } else {
-  header("Location: login.php");
+    setcookie('redirect', 'cart.php', time()+3600);  
+    header("Location: login.php");
 }
 ?>
 

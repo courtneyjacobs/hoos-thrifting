@@ -21,6 +21,7 @@
 require('connect-db.php');
 require('sell-db.php');
 session_start();
+setcookie('redirect', 'sell.php', time()+3600);  
 ?>
 
 <!--Source: Bootstrap Nav Bar from https://getbootstrap.com/docs/4.4/components/navbar/ -->   
@@ -65,7 +66,7 @@ session_start();
 
         ?>
 
-        <!--Insert Items into Database-->
+        <!--PHP: Insert Items into Database-->
         <?php
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -79,21 +80,46 @@ session_start();
         }
         ?>
 
+
+
     <div id="sellForm" class="row" style="visibility: visible">
         <!--Upload Button-->
         <div class="col-lg-4">
-            <img class="rounded mx-auto d-block" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/OOjs_UI_icon_upload-ltr.svg/1024px-OOjs_UI_icon_upload-ltr.svg.png" alt="Upload Icon" style="width:150px;height:150px;" class="center" >
-        </div>
+            <img class="rounded mx-auto d-block" src="https://cdn.onlinewebfonts.com/svg/img_234957.png" alt="Upload Icon" style="width:150px;height:150px;" class="center" >
+            <!--UPLOAD FORM-->
+            <!--Source: https://www.w3schools.com/php/php_file_upload.asp ; https://stackoverflow.com/questions/37504383/button-inside-a-label https://stackoverflow.com/questions/572768/styling-an-input-type-file-button -->
+            <form name="upload-form">
+                <br>
+                <div class="form-group required">
+                    <label>Upload an image:<br><small>(.jpg, .jpeg, .png)</small></label><br></div>
 
+                <input id="kh" type="file" style="display:none" />
+                <button for="fileToUpload" type="submit" class="btn btn-secondary" style="background-color: #E8E8E8; border-color:transparent; color:black;">
+                    <label for="fileToUpload" style=" display: inline-block; width:110px; height:4px; cursor: pointer;">Choose Image</label>
+                </button> <br>
+                <small style="color: red" id="imgError"></small>
+                
+                <input id="fileToUpload" name="fileToUpload" type="file" style="display:none" require/>
+                <br>
+                <input type="submit" name="upload" value="Upload" style="display:none">
+
+                <button type="button" class="btn btn-secondary">
+                    <label for="upload" style="display:inline-block; width:100px; height:4px; cursor:pointer;" >Upload</label>
+                </button>
+            </form>
+
+            
+        
+        </div>
         <div class="col-lg-8">
-            <!--BEGIN FORM-->
+            <!--ITEM FORM-->
             <!--Source: Bootstrap form from https://www.w3schools.com/bootstrap/bootstrap_forms.asp -->
             <form id="sell-form" action="<?php $_SERVER['PHP_SELF'] ?>" method="POST">
                 <!--Category Selection-->
                 <div class="form-group required">
                     <label class="col-sm-12" style="display:inline-block; text-align:left;" for="ctg">Category:</label>
                     <div class="col-sm-8"> 
-                        <select class="form-control" id="category" name="ctg" required>
+                        <select class="form-control" id="category" name="ctg" required style="cursor:pointer;">
                             <option disabled selected value> -- select a category -- </option>
                             <option value="1">Tops</option>
                             <option value="2">Bottoms</option>
@@ -114,7 +140,7 @@ session_start();
                 <div class="form-group required">
                     <label class="col-sm-12" style="display:inline-block; text-align:left;" for="size">Size:</label>
                     <div class="col-sm-8">          
-                        <select class="form-control" id="size" name="size" required>
+                        <select class="form-control" id="size" name="size" required style="cursor:pointer;">
                             <option disabled selected value> -- select a size -- </option>
                             <option value="1">No Size</option>
                             <option value="2">XS (00-1)</option>
@@ -129,7 +155,7 @@ session_start();
                 <div class="form-group">
                     <label class="col-sm-12" style="display:inline-block; text-align:left;" for="color">Color:</label>
                     <div class="col-sm-8">          
-                        <select class="form-control" id="color" name="color">
+                        <select class="form-control" id="color" name="color" style="cursor:pointer;">
                             <option value="0" selected></option>
                             <option value="1">Black</option>
                             <option value="2">Blue</option>
@@ -150,7 +176,7 @@ session_start();
                 <div class="form-group required">
                     <label class="col-sm-12" style="display:inline-block; text-align:left;" for="cond">Condition:</label>
                     <div class="col-sm-8">          
-                        <select class="form-control" id="condition" name="cond" required>
+                        <select class="form-control" id="condition" name="cond" required style="cursor:pointer;">
                             <option disabled selected value> -- select a condition -- </option>
                             <option value="1">New</option>
                             <option value="2">Like New</option>
@@ -164,16 +190,17 @@ session_start();
                 <div class="form-group">   
                     <label class="col-sm-12" style="display:inline-block; text-align:left;" for="desc">Description:</label>
                     <div class="col-sm-8">
-                        <textarea class="form-control" id="desc" name="desc" maxlength="250"></textarea>
+                        <textarea class="form-control" id="desc" name="desc" maxlength="250" onkeydown="checkWordCt()"></textarea>
+                        <div class="col-sm-14" style=" text-align:right;" id="wordCt"><small>250</small></div>
                     </div>
                 </div>
                 <!--Pricing-->
                 <div class="form-group required">
                     <label class="col-sm-12" style="display:inline-block; text-align:left;" for="price">Price:</label>
-                    <div class="col-3">
+                    <div class="col-sm-3">
                         <input class="form-control"  id="price" name="price" type="number" step="0.01" min="1" max="1000" required onchange="validPrice()"></input>
-                        <small style="color: red" id="youearnError"></small>
                     </div> 
+                    <div class="col-sm-12" style=" text-align:left;"><small style="color: red" id="youearnError"></small></div>
                 </div>
                 <div class="form-group"> 
                     <label class="col-sm-12" style="display:inline-block; text-align:left;" for="youearn">You Will Earn:</label>
@@ -200,8 +227,77 @@ session_start();
     echo "</div>";
 ?>
 
+<!--PHP: Upload images
+testUpload($userId, $ctg, $size, $cond, $price, $img)
+-->
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    echo ("page post.");
+
+    // check if it's from the upload img button
+    if(isset($_POST["upload"])) {
+        echo ("inside upload");
+
+        $target_dir = "uploads/";
+        $target_file = $target_dir . basename($_FILES[$_POST["fileToUpload"]]["name"]);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
 
+        // CHECK IF A FILE HAS BEEN UPLOADED
+
+        // check if file is an image type
+        $check = getimagesize($_FILES[$_POST["fileToUpload"]]["tmp_name"]);
+        if($check !== false) {
+            echo "File is an image - " . $check["mime"] . ".";
+            $uploadOk = 1;
+        } else {
+            echo "File is not an image.";
+        $uploadOk = 0;
+        }
+
+        // Allow certain file formats
+        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+            echo "Sorry, only JPG, JPEG, & PNG files are allowed.";
+            $uploadOk = 0;
+        }
+
+        // Check if file already exists
+        if (file_exists($target_file)) {
+            echo "Sorry, file already exists. But added it anyway";
+            $target_file = $target_file.'_'.time();    
+            // add uploadok?
+        }
+
+        // Check file size
+        if ($_FILES[$_POST["fileToUpload"]]["size"] > 500000) {
+            echo "Sorry, your file is too large.";
+            $uploadOk = 0;
+        }
+
+        // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0) {
+            echo "Sorry, your file was not uploaded.";
+        // if everything is ok, try to upload file
+        } else {
+            if (move_uploaded_file($_FILES[$_POST["fileToUpload"]]["tmp_name"], $target_file)) {
+                echo "The file ". basename( $_FILES[$_POST["fileToUpload"]]["name"]). " has been uploaded.";
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+            }
+        }
+    }
+    // upload button has no data
+    else {
+        echo ("Please select an image.");
+                    
+        echo '<script type="text/javascript">';
+        echo 'document.getElementById("imgError").innerHTML = "Please choose an image."';
+        echo '</script>';
+    }
+}
+
+?>
 
 
 

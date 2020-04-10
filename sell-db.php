@@ -1,6 +1,7 @@
 <?php
 require('connect-db.php');
 
+// Insert item into database
 function addSellItem($userId, $category, $brand, $size, $color, $condition, $description, $price) {
     global $db;
 
@@ -62,5 +63,59 @@ function testPls($userId, $desc, $price, $ctg, $size, $cond){
 
     $statement->closeCursor();
 
+}
+
+function testUpload($userId, $ctg, $size, $cond, $price, $img) {
+    global $db;
+
+    $query = "INSERT INTO items (userId, category, size, cond, price, imgBlob) VALUES (:userId, :ctg, :size, :cond, :price, :img)";
+
+    $statement = $db->prepare($query);
+
+    $statement->bindValue(':userId', $userId);
+    $statement->bindValue(':ctg', $ctg);
+    $statement->bindValue(':size', $size);
+    $statement->bindValue(':cond', $cond);
+    $statement->bindValue(':price', $price);
+    $statement->bindValue(':img', $img);
+
+    if ($statement->execute()) {
+        // Display success message
+        echo '<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>';
+        echo '<div id="successMessage" class="alert alert-success">Item successfully listed!</div>';
+    
+        echo '<script type="text/javascript">';
+        echo '$(document).ready( function() {
+              $("#successMessage").delay(1500).fadeOut();
+              });';
+        echo '</script>';
+    } else {
+        echo '<div class="alert alert-danger">There was a problem listing your item.</div>';
+    }
+    $statement->closeCursor();
+}
+
+function upload($image) {
+    global $db;
+
+    $query="insert IGNORE into `items` (`imgVar`) values ('$image')";
+    $statement = $db->prepare($query);
+    
+    mysqli_query($con,$query) or die(mysqli_error($con));
+
+    if ($statement->execute()) {
+        // Display success message
+        echo '<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>';
+        echo '<div id="successMessage" class="alert alert-success">Item successfully listed!</div>';
+    
+        echo '<script type="text/javascript">';
+        echo '$(document).ready( function() {
+              $("#successMessage").delay(1500).fadeOut();
+              });';
+        echo '</script>';
+    } else {
+        echo '<div class="alert alert-danger">There was a problem listing your item.</div>';
+    }
+    $statement->closeCursor();
 }
 ?>

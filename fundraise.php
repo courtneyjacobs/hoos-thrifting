@@ -19,6 +19,7 @@
 <?php
 require('connect-db.php');
 require('promo.php');
+setcookie('redirect', 'fundraise.php', time()+3600);  
 session_start();
 ?>
 
@@ -75,6 +76,8 @@ session_start();
 
        <!--Show Info If Guest--> <!--REQUIRE USER TO BE LOGGED IN-->
        <?php 
+            
+
             // if user not logged in
             if(!isset($_SESSION['user'])) {     
                 echo '</div>';

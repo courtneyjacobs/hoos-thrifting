@@ -7,48 +7,19 @@
  * sell.html
 */
 
-var items = [];
 
-// Valid Inputs
-
-//*** Creates <p> with items populated
-function createItems() {
-	document.getElementById("createdItems").innerHTML ="<p>Your Items</p>";
-	var i=0;
-	items.forEach( 
-		item => {
-			i++;
-			document.getElementById("createdItems").innerHTML+="<strong> Item " + i + "</strong> <p> Category: " + item.category + ", Brand: " + item.brand + ", Size: " + item.size + ", Color: " +
-			item.color + ", Condition: " + item.condition + ", Description: " + item.desc + ", Price: " + item.price + "</p><br>"; 
-		}
-	)
+//*** Show error if image not selected
+function imageError() {
+	// if image not selected
+	document.getElementById('imgError').innerHTML = "Please choose an image.";
+	
 }
-
-//*** Populate object from form
-function populate() {
-	var newItem = {
-	    category:"",
-	    brand:"",
-	    size:"",
-	    color:"white",
-	    condition:"new",
-	    desc:"none",
-	    price: "",
+//*** Live word count for description box.
+// Source: https://stackoverflow.com/questions/14086398/count-textarea-characters
+function checkWordCt() {
+	document.getElementById('desc').onkeydown = function () {
+		document.getElementById('wordCt').innerHTML = "<small>" + (250 - this.value.length) +"</small>";
 	};
-	var getDropdown = dropID => {
-		drop = document.getElementById(dropID);
-		return drop.options[drop.selectedIndex].value;
-	}
-	newItem.category = getDropdown("category");
-	newItem.brand = document.getElementById("brand").value;
-	newItem.size = document.getElementById("size").value;
-	newItem.color = document.getElementById("color").value;
-	newItem.condition = document.getElementById("condition").value;
-	newItem.desc = document.getElementById("desc").value;
-	newItem.price = document.getElementById("price").value;
-	items.push(newItem);
-	createItems();
-	document.getElementById("sell-form").reset();
 }
 
 //*** Check if entered price is within range.
@@ -71,7 +42,7 @@ function setEarnings() {
 	var earnings = price - fee; 
 
 	var youEarn = document.getElementById("youearn");
-	youEarn.value = "$" + earnings;
+	youEarn.value = "$" + earnings.toFixed(2);				// add trailing 0's
 }
 
 /*

@@ -19,6 +19,7 @@
 <?php
 require('connect-db.php');
 session_start();
+setcookie('redirect', 'shop.php', time()+3600);  
 ?>
 
 <!--Source: Bootstrap Nav Bar from https://getbootstrap.com/docs/4.4/components/navbar/ -->   

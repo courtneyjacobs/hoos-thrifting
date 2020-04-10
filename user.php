@@ -68,7 +68,7 @@ function authenticate($username, $pass) {
 function getUserInfo($id) {
     global $db;
 
-    $query = "SELECT * FROM user WHERE id=:id";
+    $query = "SELECT username, first, last, email, phone, bio FROM user WHERE id=:id";
     $statement = $db->prepare($query);
     $statement->bindValue(':id', $id); 
     $statement->execute();
@@ -78,16 +78,18 @@ function getUserInfo($id) {
 }
 
 // Updates the information of the user with given id
-function updateUserInfo($id, $username, $pass_hash, $first, $last) {
+function updateUserInfo($id, $username, $pass, $first, $last, $email) {
     global $db;
+    $pass_hash = password_hash($pass, PASSWORD_DEFAULT);
 
-    $query = "UPDATE user SET username=:username, pass=:pass_hash, first=:first, last=:last WHERE id=:id";    
+    $query = "UPDATE user SET username=:username, pass=:pass_hash, first=:first, last=:last, email=:email WHERE id=:id";    
     $statement = $db->prepare($query);
     $statement->bindValue(':username', $username);
     $statement->bindValue(':pass_hash', $pass_hash);
     $statement->bindValue(':first', $first);
     $statement->bindValue(':last', $last);
     $statement->bindValue(':id', $id); 
+    $statement->bindValue(':email', $email); 
     $statement->execute();
     $results = $statement->fetch();
     $statement->closeCursor();
