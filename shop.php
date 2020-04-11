@@ -18,6 +18,7 @@
     
 <?php
 require('connect-db.php');
+require('item.php');
 session_start();
 setcookie('redirect', 'shop.php', time()+3600);  
 ?>
@@ -47,6 +48,25 @@ setcookie('redirect', 'shop.php', time()+3600);
 <div class="container">
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
         <h1 class="display-4"><a href="shop.php">Shop</a></h1>
+    </div>
+    <div class="row">
+        <?php
+            $items = getShopItems('', '');
+            if(!empty($items)) {
+                echo '<ul>';
+                foreach($items as $item) {
+                    echo '<li>';
+                    echo 'User Id: ' . $item['userId'] . ', Category: '. $item['category'] . ', Brand: ' . $item['brand'] . 
+                        ', Size: ' . $item['size'] . ', Color: ' . $item['color'] . ', Condition: ' . 
+                        $item['cond'] . ', Description: ' . $item['description'] . ', Price: ' . $item['price'];                    
+                    echo '</li>';
+                }
+                echo '</ul>';
+            }
+            else {
+                echo '<p>No items to display.</p>';
+            }
+        ?>
     </div>
     <div class="row">
         <a href="#">Back to top</a>

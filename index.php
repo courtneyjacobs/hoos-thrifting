@@ -19,6 +19,7 @@
   
 <?php
 require('connect-db.php');
+require('item.php');
 session_start();
 setcookie('redirect', 'index.php', time()+3600);  
 ?>
@@ -93,7 +94,26 @@ setcookie('redirect', 'index.php', time()+3600);
       consequat.</p>
     </div>
     <hr class="featurette-divider">
-
+    <div class="pricing-header px-3 py-3 pb-md-4 mx-auto text-center">
+      <h1 class="display-4">Recently Listed Items</h1>
+        <?php
+            $items = get5RecentItems();
+            if(!empty($items)) {
+                echo '<ul>';
+                foreach($items as $item) {
+                    echo '<li>';
+                    echo 'User Id: ' . $item['userId'] . ', Category: '. $item['category'] . ', Brand: ' . $item['brand'] . 
+                      ', Size: ' . $item['size'] . ', Color: ' . $item['color'] . ', Condition: ' . 
+                      $item['cond'] . ', Description: ' . $item['description'] . ', Price: ' . $item['price'];
+                    echo '</li>';
+                }
+                echo '</ul>';
+            }
+            else {
+                echo '<p>No items to display.</p>';
+            }
+        ?> 
+    </div>
 </div>
 </div>
 
