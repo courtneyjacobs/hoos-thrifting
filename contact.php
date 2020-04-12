@@ -36,7 +36,7 @@ setcookie('redirect', 'contact.php', time()+3600);
                 <li class="nav-item"><a href="fundraise.php" class="nav-link">Fundraise</a></li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href='<?php if(isset($_SESSION['user'])) echo "logout.php"; else echo "login.php"; ?>' class="nav-link"><?php if(isset($_SESSION['user'])) echo "Logout"; else echo "Log-in or sign up"; ?></a></li>
+                <li class="nav-item"><a href='<?php if(isset($_SESSION['user'])) echo "logout.php"; else echo "login.php"; ?>' class="nav-link"><?php if(isset($_SESSION['user'])) echo "Log-out"; else echo "Log-in or sign up"; ?></a></li>
                 <li class="nav-item"><a href="cart.php" class="nav-link"><i class="fas fa-shopping-cart"></i></a></li>
                 <li class="nav-item"><a href="profile.php" class="nav-link"><i class="fas fa-user"></i></a></li>
             </ul>        
@@ -55,33 +55,33 @@ setcookie('redirect', 'contact.php', time()+3600);
         </div>
         <!--Begin Form-->
         <div class="col-lg-5">
-            <form id="contact-form" onsubmit="confirmMessage()">			
+            <form id="contact-form" onsubmit="confirmMessage()">            
                 <div class="form-group required">   
-	                <label for="FName">First Name:</label><br>
-	                <input class="form-control" id="FName" type="text" required placeholder="First Name" autofocus></input>
-	            </div>
-	     		<div class="form-group required"> 
-	                <label for="LName">Last Name:</label><br>
-	                <input class="form-control" id="LName" type="text" required placeholder="Last Name"></input>
-	            </div>
-	            <div class="form-group required"> 
-	                <label for="email">Email:</label><br>
-	                <input class="form-control" id="email" type="email" required placeholder="your@email.com"></input>
-	            </div>
-	            <div class="form-group required"> 
-	                <label for="message">Message:</label><br>
-	                <textarea class="form-control" id="message" required placeholder="Give a brief description of your situation or question!" rows=10></textarea>
+                    <label for="FName">First Name:</label><br>
+                    <input class="form-control" id="FName" type="text" required placeholder="First Name" autofocus></input>
+                </div>
+                <div class="form-group required"> 
+                    <label for="LName">Last Name:</label><br>
+                    <input class="form-control" id="LName" type="text" required placeholder="Last Name"></input>
+                </div>
+                <div class="form-group required"> 
+                    <label for="email">Email:</label><br>
+                    <input class="form-control" id="email" type="email" required placeholder="your@email.com"></input>
+                </div>
+                <div class="form-group required"> 
+                    <label for="message">Message:</label><br>
+                    <textarea class="form-control" id="message" required placeholder="Give a brief description of your situation or question!" rows=10></textarea>
                 </div>
                 <div class="form-group"> 
                     <button type="submit" class="btn btn-secondary" style="width:144px">Send</button>
                 </div>
-	        	
+                
             </form>
             <!--Confirmation Screen-->
             <div id="Confirm-Submission" style="display: none;">
                 <img class="rounded mx-auto d-block" src="https://svgsilh.com/svg/40319.svg" alt="Checkmark" style="width:90px;height:90px;" class="center" >
                 <p id="Confirm-Text" class="lead" style="padding-top: 10px"></p>
-        	</div>
+            </div>
         </div>
     </div>
 </div>

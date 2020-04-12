@@ -8,15 +8,15 @@ $password = 'test';
 
 $dsn = "mysql:host=$hostname;dbname=$dbname"; 
 try {
-  $db = new PDO($dsn, $username, $password);
-  //echo "successfully connected";
+    $db = new PDO($dsn, $username, $password);
+    //echo "successfully connected";
 }
 catch(PDOException $e) {
-  $error_message = $e->getMessage();
-  echo "pdo $error_message";
+    $error_message = $e->getMessage();
+    echo "pdo $error_message";
 }
 catch(Exception $e) {
-  $error_message = $e->getMessage();
+    $error_message = $e->getMessage();
     echo "ex $error_message";
 }
 ?>
