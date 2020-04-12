@@ -19,6 +19,7 @@
 <?php
 require('connect-db.php');
 require('user.php');
+require('item.php');
 session_start();
 setcookie('redirect', 'profile.php', time()+3600);  
 if(isset($_SESSION['user'])) {
@@ -149,35 +150,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>
 
         </div>
-        <h2> Your Available Items </h2>
-        <div class="row">
-            <?php
-                $items = getUserItems($_SESSION['userId']);
-                if(!empty($items)) {
-                    echo '<ul>';
-                    foreach($items as $item) {
-                        echo '<li>';
-                        echo 'User Id: ' . $item['userId'] . ', Category: '. $item['category'] . ', Brand: ' . $item['brand'] . 
-                            ', Size: ' . $item['size'] . ', Color: ' . $item['color'] . ', Condition: ' . 
-                            $item['cond'] . ', Description: ' . $item['description'] . ', Price: ' . $item['price'];
-                        echo '</li>';
-                    }
-                    echo '</ul>';
+    </div>
+    <h2> Your Available Items </h2>
+    <div class="row">
+        <?php
+            $items = getUserItems($_SESSION['userId']);
+            if(!empty($items)) {
+                echo '<ul>';
+                foreach($items as $item) {
+                    echo '<li>';
+                    echo 'User Id: ' . $item['userId'] . ', Category: '. $item['category'] . ', Brand: ' . $item['brand'] . 
+                        ', Size: ' . $item['size'] . ', Color: ' . $item['color'] . ', Condition: ' . 
+                        $item['cond'] . ', Description: ' . $item['description'] . ', Price: ' . $item['price'];
+                    echo '</li>';
                 }
-                else {
-                    echo '<p>No items to display! List an item on the <a href=sell.php>Sell page</a>.</p>';
-                }
-            ?>
-        </div>
-
-
+                echo '</ul>';
+            }
+            else {
+                echo '<p>No items to display! List an item on the <a href=sell.php>Sell page</a>.</p>';
+            }
+        ?>
     </div>
 </div>
-
-
-
-
-
 
 
 <!--Footer-->

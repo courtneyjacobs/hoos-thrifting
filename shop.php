@@ -18,6 +18,7 @@
     
 <?php
 require('connect-db.php');
+require('item.php');
 session_start();
 setcookie('redirect', 'shop.php', time()+3600);  
 ?>
