@@ -19,7 +19,7 @@
     
 <?php
 require('connect-db.php');
-require('sell-db.php');
+require('item-db.php');
 session_start();
 setcookie('redirect', 'sell.php', time()+3600);  
 ?>
@@ -90,7 +90,7 @@ setcookie('redirect', 'sell.php', time()+3600);
             <!--Source: https://www.w3schools.com/php/php_file_upload.asp ; https://stackoverflow.com/questions/37504383/button-inside-a-label https://stackoverflow.com/questions/572768/styling-an-input-type-file-button -->
             <form name="upload-form" action="<?php $_SERVER['PHP_SELF'] ?>" method="GET" enctype="multipart/form-data">
                 <br>
-                <div class="form-group required">
+                <div class="form-group">
                     <label>Upload an image:<br><small>(.jpg, .jpeg, .png)</small></label><br></div>
 
                 <input id="kh" type="file" style="display:none" />

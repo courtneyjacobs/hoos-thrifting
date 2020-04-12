@@ -18,7 +18,7 @@
 
 <?php
 require('connect-db.php');
-require('promo.php');
+require('promo-db.php');
 setcookie('redirect', 'fundraise.php', time()+3600);  
 session_start();
 ?>

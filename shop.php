@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="author" content="Courtney Jacobs">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Shop</title>
@@ -18,7 +19,7 @@
     
 <?php
 require('connect-db.php');
-require('item.php');
+require('item-db.php');
 session_start();
 setcookie('redirect', 'shop.php', time()+3600);  
 ?>

@@ -1,4 +1,6 @@
 <?php 
+// Author: Courtney Jacobs
+
 $hostname = 'localhost:3306';
 $dbname = 'hoos_thrifting';
 $username = 'test';

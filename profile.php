@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="author" content="Courtney Jacobs; Amara Vo">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Profile</title>
@@ -18,8 +19,8 @@
     
 <?php
 require('connect-db.php');
-require('user.php');
-require('item.php');
+require('user-db.php');
+require('item-db.php');
 session_start();
 setcookie('redirect', 'profile.php', time()+3600);  
 if(isset($_SESSION['user'])) {

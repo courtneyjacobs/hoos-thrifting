@@ -1,4 +1,6 @@
 <?php
+// Author: Courtney Jacobs
+
 session_start();
 
 // end session

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="author" content="Courtney Jacobs; Amara Vo">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Log In</title>
@@ -17,7 +18,7 @@
 
 <?php
 require('connect-db.php');
-require('user.php');
+require('user-db.php');
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

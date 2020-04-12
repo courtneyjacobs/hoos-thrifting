@@ -19,7 +19,7 @@
   
 <?php
 require('connect-db.php');
-require('item.php');
+require('item-db.php');
 
 session_start();
 setcookie('redirect', 'index.php', time()+3600);  
