@@ -49,6 +49,25 @@ setcookie('redirect', 'shop.php', time()+3600);
         <h1 class="display-4"><a href="shop.php">Shop</a></h1>
     </div>
     <div class="row">
+            <?php
+                $items = getShopItems('', '');
+                if(!empty($items)) {
+                    echo '<ul>';
+                    foreach($items as $item) {
+                        echo '<li>';
+                        echo 'User Id: ' . $item['userId'] . ', Category: '. $item['category'] . ', Brand: ' . $item['brand'] . 
+                            ', Size: ' . $item['size'] . ', Color: ' . $item['color'] . ', Condition: ' . 
+                            $item['cond'] . ', Description: ' . $item['description'] . ', Price: ' . $item['price'];                    
+                        echo '</li>';
+                    }
+                    echo '</ul>';
+                }
+                else {
+                    echo '<p>No items to display.</p>';
+                }
+            ?>
+        </div>
+    <div class="row">
         <a href="#">Back to top</a>
     </div>
 </div>

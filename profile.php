@@ -149,7 +149,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>
 
         </div>
-
+        <h2> Your Available Items </h2>
+        <div class="row">
+            <?php
+                $items = getUserItems($_SESSION['userId']);
+                if(!empty($items)) {
+                    echo '<ul>';
+                    foreach($items as $item) {
+                        echo '<li>';
+                        echo 'User Id: ' . $item['userId'] . ', Category: '. $item['category'] . ', Brand: ' . $item['brand'] . 
+                            ', Size: ' . $item['size'] . ', Color: ' . $item['color'] . ', Condition: ' . 
+                            $item['cond'] . ', Description: ' . $item['description'] . ', Price: ' . $item['price'];
+                        echo '</li>';
+                    }
+                    echo '</ul>';
+                }
+                else {
+                    echo '<p>No items to display! List an item on the <a href=sell.php>Sell page</a>.</p>';
+                }
+            ?>
+        </div>
 
 
     </div>
