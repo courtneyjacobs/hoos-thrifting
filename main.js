@@ -107,8 +107,10 @@ function checkPromo() {
 
 //*** Ensure that a charity name has been inputted.
 function checkCharity() {
+	
+	alert('document.getElementById("charityName").value.length');
 
-	document.getElementById("charityError").style.visibility="hidden";						// hide the text
+	///document.getElementById("charityError").style.visibility="hidden";						// hide the text
 	var charityStatus = document.getElementById("charityError").style.visibility;
 	var CIOchecked = document.getElementById("CIO-purpose").checked;
 	var charityChecked = document.getElementById("Charity-purpose").checked;
@@ -116,7 +118,8 @@ function checkCharity() {
 	// if CIO checked
 	if (CIOchecked) {
 		// clear field of charity input
-		if (document.getElementById("charityName").value != "") {
+		
+		if (document.getElementById("charityName").value.length > 0) {
 			document.getElementById("charityName").value = "";								// CLEAR TEXT FIELD 
 		}
 
@@ -126,6 +129,7 @@ function checkCharity() {
 		}
 
 	}
+	/*
 	// if Charity checked
 	else if (charityChecked){
 		// check field for empty input, then show error
@@ -138,7 +142,7 @@ function checkCharity() {
 		}
 
 	}
-
+	*/
 }
 
 //*** Set default Start Date to the current date.

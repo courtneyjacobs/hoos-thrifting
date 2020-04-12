@@ -37,7 +37,7 @@ session_start();
                 <li class="nav-item"><a href="fundraise.php" class="nav-link">Fundraise</a></li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href='<?php if(isset($_SESSION['user'])) echo "logout.php"; else echo "login.php"; ?>' class="nav-link"><?php if(isset($_SESSION['user'])) echo "Log-out"; else echo "Log in or sign up"; ?></a></li>
+                <li class="nav-item"><a href='<?php if(isset($_SESSION['user'])) echo "logout.php"; else echo "login.php"; ?>' class="nav-link"><?php if(isset($_SESSION['user'])) echo "Log-out"; else echo "Log-in or sign up"; ?></a></li>
                 <li class="nav-item"><a href="cart.php" class="nav-link"><i class="fas fa-shopping-cart"></i></a></li>
                 <li class="nav-item"><a href="profile.php" class="nav-link"><i class="fas fa-user"></i></a></li>
             </ul>        
@@ -83,7 +83,7 @@ session_start();
                 echo '</div>';
                 echo '<div style="margin:0 auto; padding-top: 5px; padding-bottom: 40px" align=center>';
                 echo '<form action="login.php">';
-                echo '   <button type="submit" style="width:200px; height:90px" class="btn btn-primary btn-success">Must be logged-in!</button>';
+                echo '   <button type="submit" style="width:200px; height:90px" class="btn btn-primary btn-success">Log-in to start</button>';
                 echo "</form>";
                 echo "</div>";
 
@@ -96,72 +96,9 @@ session_start();
         ?>
 
 
-    <!--Promo Validation-->
-    <?php
-    
-    
-    if ($_SERVER["REQUEST_METHOD"] == "GET") {
-
-        //echo 'alert("start and end are NOT null")';
-        //echo isset($_GET['end']);           // expect true
-        // !empty($_GET['login']) && !empty($_POST['username']) && !empty($_POST['pwd'])
-        if  (!empty($_GET['code']) ) {    // && !empty($_GET['start']) && !empty($_GET['end'])
-        //if(isset($_POST['promo']) && isset($_POST['start']) && isset($_POST['end']) && isset($_POST['cio'])) {
-            echo '<script language="javascript">';
-            echo 'alert("FIELDS FILLED")';
-            echo '</script>';
-
-            /*
-            // $code, $userId, $start, $end, $cio, $charity
-            // if there's no charity name
-            if (!isset($_GET['charity'])) {         // ! false
-                echo 'alert("create promo w/o charity")';
-                createPromoCode($_GET['code'], $_SESSION['userId'], $_GET['start'], $_GET['end'], $_GET['purpose'], "");
-            }
-            else {
-                echo 'alert("create promo w charity")';
-            }
-
-            // if purpose is CIO
-        
-            */
-
-            // get code, get userid, date, date, cioname,
-
-            if (true) {
-                echo "inside create";
-                createPromoCode($_GET['code'], $_SESSION['userId'], 2020-04-12, 2020-04-14, $_GET['cio'], "");
-            }
-           
-            /*
-            // if promocode doesn't exist yet
-            if (!isPromoCodeTaken($_GET['code'])) {
-                // add to database
-                echo "HELLO";
-                echo ($_SESSION['userId']);
-
-                createPromoCode($_GET['code'], $_SESSION['userId'], $_GET['cio'], $_GET['charity']);
-            }
-            
-            // promocode exists: display error
-            else {
-                echo "promocode exists";
-                $promoError = "This code has been used before. Please try another code.";
-            }
-            */
-        }
-        else {
-            echo 'alert("FIELDS NOT FILLED")';
-        }
-
-    }
-
-   
-    ?>
-
     <!--Fundraise Form-->
     <hr class="featurette-divider" >
-    <form id="fundraise-form" action="<?php $_SERVER['PHP_SELF'] ?>" method="GET" onsubmit="confirmMessage()">
+    <form id="fundraise-form" action="<?php $_SERVER['PHP_SELF'] ?>" method="GET">
         <div class="row">
             <!--Organization Information-->
             <div class="col-lg-3 form-group required">   
@@ -170,41 +107,33 @@ session_start();
             </div>
             <div class="col-lg-3 form-group required d-inline">   
                 <label for="CharityButton">Fundraising Purpose:</label><br>
-                <input  type="radio" name="purpose" id="CIO-purpose" value="CIO" required><span id="choice"> <label for="CIO-purpose"> Your CIO</label> </span><br>
-                <input  type="radio" name="purpose" id="Charity-purpose" value="CHARITYYTESTNAME" required><span id="choice"> <label for="Charity-purpose"> Charity (please specify):</label> </span>
+                <input onchange="checkCharity()" type="radio" name="purpose" id="CIO-purpose" value="CIO" required><span id="choice"> <label for="CIO-purpose"> Your CIO</label> </span><br>
+                <input onchange="checkCharity()" type="radio" name="purpose" id="Charity-purpose" value="CHARITYYTESTNAME" required><span id="choice"> <label for="Charity-purpose"> Charity (please specify):</label> </span>
                 <input  type="text" id="charityName" name="charity">
-                <span>
-                    <div class="col-lg-4 d-inline pt-lg-2 form-group" id="charityError" style="visibility: hidden">
+                <!--Charity Validation-->
+                <div class="col-lg-4 d-inline pt-lg-2 form-group" id="charityError" style="visibility: hidden">
                         <p id="charityErrorMessage" style="color: red; font-size: 14px;"> Please fill out the name of the charity.</p>
-                    </div>
-                </span>
+                </div>
+
+                <p id="signupError" style="color: red; font-size: 14px;"> <?php if(isset($passError)) echo $passError?></p> 
             </div>            
             <!--Fundraising Information-->
-            <div class="col-lg-3 form-group required">   
+            <div class="col-lg-2 form-group required">   
                 <label for="start">Start Date:</label><br>
-                <input required type="date" id="start" min="2020-02-27">
+                <input required type="date" id="start" min="2020-02-27" style="width:105px">
             </div>
-            <div class="col-lg-3 form-group required">   
-                <label for="end">End Date:</label><br>
-                <input required type="date" id="end" placeholder="YYYY-MM-DD" min="2020-06-27">
+            <div class="col-lg-2 form-group required">   
+                <label for="end">Duration:</label><br>
+                <input id="end" placeholder="# of Days" required type="number"step="1" min="1" max="30" style="width:100px" >
             </div>
             <!--Promo code Box-->
             <div class="col-lg-2 form-group required">   
                 <label for="promo">Promotional Code:</label><br>
                 <input onkeyup="checkPromo()" required type="text" id="promo" name="code" pattern="[A-Za-z0-9]{3,6}" placeholder="Min. 3 characters" minlength="3" maxlength="6" style="width: 150px">
             </div>
-            <!--Promo code Validation-->
-            <span>
-            <div class="col-lg-4 d-inline pt-lg-2 form-group" id="promoError" style="visibility: visible">
-                <p id="errorMessage" style="color: red; font-size: 14px;"> <br>
-                
-                
-                
-            </div>
-            </span>
             <!--Submit Button-->
             <div class="col-lg-12 form-group"> 
-                <button id="submitButton" name="promo" type="submit" class="btn btn-primary" style="width:144px">Submit</button> 
+                <button id="submitButton" name="promo" type="submit" class="btn btn-secondary" style="width:144px">Submit</button> 
             </div>
         </div>
     </form>
@@ -220,6 +149,15 @@ session_start();
 <?php
     }
     echo "</div>";
+?>
+
+<!--Validate Charity-->
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+
+
+}
+
 ?>
 
 <!--Footer-->

@@ -38,7 +38,7 @@ setcookie('redirect', 'sell.php', time()+3600);
                 <li class="nav-item"><a href="fundraise.php" class="nav-link">Fundraise</a></li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href='<?php if(isset($_SESSION['user'])) echo "logout.php"; else echo "login.php"; ?>' class="nav-link"><?php if(isset($_SESSION['user'])) echo "Logout"; else echo "Log in or sign up"; ?></a></li>
+                <li class="nav-item"><a href='<?php if(isset($_SESSION['user'])) echo "logout.php"; else echo "login.php"; ?>' class="nav-link"><?php if(isset($_SESSION['user'])) echo "Logout"; else echo "Log-in or sign up"; ?></a></li>
                 <li class="nav-item"><a href="cart.php" class="nav-link"><i class="fas fa-shopping-cart"></i></a></li>
                 <li class="nav-item"><a href="profile.php" class="nav-link"><i class="fas fa-user"></i></a></li>
             </ul>        
@@ -54,10 +54,10 @@ setcookie('redirect', 'sell.php', time()+3600);
         <?php 
             // if user not logged in
             if(!isset($_SESSION['user'])) {     
-                echo '<p class="lead">Selling is easy! Make sure to log in. </p> </div>';
+                echo '<p class="lead">Selling is simple and fast!</p> </div>';
                 echo '<div style="margin:0 auto; padding-top: 5px; padding-bottom: 40px" align=center>';
                 echo '<form action="login.php">';
-                echo '   <button type="submit" style="width:200px; height:90px" class="btn btn-primary btn-success">Must be logged-in!</button>';
+                echo '   <button type="submit" style="width:200px; height:90px" class="btn btn-primary btn-success">Log-in to start selling</button>';
                 echo "</form>";
                 echo "</div>";
             }
@@ -88,13 +88,13 @@ setcookie('redirect', 'sell.php', time()+3600);
             <img class="rounded mx-auto d-block" src="https://cdn.onlinewebfonts.com/svg/img_234957.png" alt="Upload Icon" style="width:150px;height:150px;" class="center" >
             <!--UPLOAD FORM-->
             <!--Source: https://www.w3schools.com/php/php_file_upload.asp ; https://stackoverflow.com/questions/37504383/button-inside-a-label https://stackoverflow.com/questions/572768/styling-an-input-type-file-button -->
-            <form name="upload-form">
+            <form name="upload-form" action="<?php $_SERVER['PHP_SELF'] ?>" method="GET" enctype="multipart/form-data">
                 <br>
                 <div class="form-group required">
                     <label>Upload an image:<br><small>(.jpg, .jpeg, .png)</small></label><br></div>
 
                 <input id="kh" type="file" style="display:none" />
-                <button for="fileToUpload" type="submit" class="btn btn-secondary" style="background-color: #E8E8E8; border-color:transparent; color:black;">
+                <button for="fileToUpload" type="button" class="btn btn-secondary" style="background-color: #E8E8E8; border-color:transparent; color:black;">
                     <label for="fileToUpload" style=" display: inline-block; width:110px; height:4px; cursor: pointer;">Choose Image</label>
                 </button> <br>
                 <small style="color: red" id="imgError"></small>
@@ -103,8 +103,9 @@ setcookie('redirect', 'sell.php', time()+3600);
                 <br>
                 <input type="submit" name="upload" value="Upload" style="display:none">
 
+                
                 <button type="button" class="btn btn-secondary">
-                    <label for="upload" style="display:inline-block; width:100px; height:4px; cursor:pointer;" >Upload</label>
+                    <label for="upload" style="display:inline-block; width:100px; height:4px; cursor:pointer;">Upload</label>
                 </button>
             </form>
 
@@ -232,7 +233,8 @@ testUpload($userId, $ctg, $size, $cond, $price, $img)
 -->
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    echo ("page post.");
+
+    //echo ("page post.");
 
     // check if it's from the upload img button
     if(isset($_POST["upload"])) {
@@ -289,11 +291,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     // upload button has no data
     else {
-        echo ("Please select an image.");
+        //echo ("Please select an image.");
                     
-        echo '<script type="text/javascript">';
-        echo 'document.getElementById("imgError").innerHTML = "Please choose an image."';
-        echo '</script>';
+        //echo '<script type="text/javascript">';
+        //echo 'document.getElementById("imgError").innerHTML = "Please choose an image."';
+        //echo '</script>';
     }
 }
 

@@ -20,10 +20,11 @@ require('connect-db.php');
 require('user.php');
 session_start();
 
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // login
     if(!empty($_POST['login']) && !empty($_POST['username']) && !empty($_POST['pwd'])) {
         $userId = authenticate($_POST['username'], $_POST['pwd']);
+
         if($userId > -1) {
             // redirect to home page and log in by starting session
             session_start();
@@ -131,7 +132,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                 <li class="nav-item"><a href="fundraise.php" class="nav-link">Fundraise</a></li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href='<?php if(isset($_SESSION['user'])) echo "logout.php"; else echo "login.php"; ?>' class="nav-link"><?php if(isset($_SESSION['user'])) echo "Logout"; else echo "Log in or sign up"; ?></a></li>
+                <li class="nav-item"><a href='<?php if(isset($_SESSION['user'])) echo "logout.php"; else echo "login.php"; ?>' class="nav-link"><?php if(isset($_SESSION['user'])) echo "Logout"; else echo "Log-in or sign up"; ?></a></li>
                 <li class="nav-item"><a href="cart.php" class="nav-link"><i class="fas fa-shopping-cart"></i></a></li>
                 <li class="nav-item"><a href="profile.php" class="nav-link"><i class="fas fa-user"></i></a></li>
             </ul>        
@@ -142,12 +143,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 <div class="container">
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-        <h1 class="display-4"><a href="cart.php">Login or Sign Up</a></h1>
+        <h1 class="display-4"><a href="cart.php">Log-in or Sign Up</a></h1>
     </div>
     <div class="row">
         <!--Log-In Form-->
         <div class="col-5">
-            <h2>Log in to an existing account</h2>
+            <h2>Log-in to an existing account</h2>
             <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
               Username: <input type="text" name="username" class="form-control" required /> <br/>
               Password: <input type="password" name="pwd" class="form-control" required /> <br/>

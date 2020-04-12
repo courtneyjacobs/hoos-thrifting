@@ -15,11 +15,10 @@
 </head>
 <body>
 
-
+    
 <?php
 require('connect-db.php');
 require('user.php');
-require('item.php');
 session_start();
 setcookie('redirect', 'profile.php', time()+3600);  
 if(isset($_SESSION['user'])) {
@@ -39,7 +38,7 @@ if(isset($_SESSION['user'])) {
                 <li class="nav-item"><a href="fundraise.php" class="nav-link">Fundraise</a></li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href='<?php if(isset($_SESSION['user'])) echo "logout.php"; else echo "login.php"; ?>' class="nav-link"><?php if(isset($_SESSION['user'])) echo "Logout"; else echo "Log in or sign up"; ?></a></li>
+                <li class="nav-item"><a href='<?php if(isset($_SESSION['user'])) echo "logout.php"; else echo "login.php"; ?>' class="nav-link"><?php if(isset($_SESSION['user'])) echo "Logout"; else echo "Log-in or sign up"; ?></a></li>
                 <li class="nav-item"><a href="cart.php" class="nav-link"><i class="fas fa-shopping-cart"></i></a></li>
                 <li class="nav-item"><a href="profile.php" class="nav-link"><i class="fas fa-user"></i></a></li>
             </ul>        
@@ -111,8 +110,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h1 class="display-4"><a href="profile.php">Profile</a></h1>
         <!--Show Username-->
         <?php 
+            
             echo '<p class="lead">Hello, ';
-            echo $_SESSION["first"] . "!";
+            echo getUserInfo($_SESSION['userId'])['first'] . "!";
             echo '</p>';
 
         ?>
@@ -121,6 +121,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="row">
 
         <?php
+
+            // get current user's info
             $results = getUserInfo($_SESSION['userId']);
 
             $newUser = $results['username'];
@@ -148,28 +150,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         </div>
 
-    </div>
-    <h2> Your Available Items </h2>
-    <div class="row">
-        <?php
-            $items = getUserItems($_SESSION['userId']);
-            if(!empty($items)) {
-                echo '<ul>';
-                foreach($items as $item) {
-                    echo '<li>';
-                    echo 'User Id: ' . $item['userId'] . ', Category: '. $item['category'] . ', Brand: ' . $item['brand'] . 
-                        ', Size: ' . $item['size'] . ', Color: ' . $item['color'] . ', Condition: ' . 
-                        $item['cond'] . ', Description: ' . $item['description'] . ', Price: ' . $item['price'];
-                    echo '</li>';
-                }
-                echo '</ul>';
-            }
-            else {
-                echo '<p>No items to display! List an item on the <a href=sell.php>Sell page</a>.</p>';
-            }
-        ?>
+
+
     </div>
 </div>
+
+
+
+
+
 
 
 <!--Footer-->

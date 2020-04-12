@@ -18,7 +18,6 @@
     
 <?php
 require('connect-db.php');
-require('item.php');
 session_start();
 setcookie('redirect', 'shop.php', time()+3600);  
 ?>
@@ -37,7 +36,7 @@ setcookie('redirect', 'shop.php', time()+3600);
                 <li class="nav-item"><a href="fundraise.php" class="nav-link">Fundraise</a></li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href='<?php if(isset($_SESSION['user'])) echo "logout.php"; else echo "login.php"; ?>' class="nav-link"><?php if(isset($_SESSION['user'])) echo "Logout"; else echo "Log in or sign up"; ?></a></li>
+                <li class="nav-item"><a href='<?php if(isset($_SESSION['user'])) echo "logout.php"; else echo "login.php"; ?>' class="nav-link"><?php if(isset($_SESSION['user'])) echo "Logout"; else echo "Log-in or sign up"; ?></a></li>
                 <li class="nav-item"><a href="cart.php" class="nav-link"><i class="fas fa-shopping-cart"></i></a></li>
                 <li class="nav-item"><a href="profile.php" class="nav-link"><i class="fas fa-user"></i></a></li>
             </ul>        
@@ -48,25 +47,6 @@ setcookie('redirect', 'shop.php', time()+3600);
 <div class="container">
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
         <h1 class="display-4"><a href="shop.php">Shop</a></h1>
-    </div>
-    <div class="row">
-        <?php
-            $items = getShopItems('', '');
-            if(!empty($items)) {
-                echo '<ul>';
-                foreach($items as $item) {
-                    echo '<li>';
-                    echo 'User Id: ' . $item['userId'] . ', Category: '. $item['category'] . ', Brand: ' . $item['brand'] . 
-                        ', Size: ' . $item['size'] . ', Color: ' . $item['color'] . ', Condition: ' . 
-                        $item['cond'] . ', Description: ' . $item['description'] . ', Price: ' . $item['price'];                    
-                    echo '</li>';
-                }
-                echo '</ul>';
-            }
-            else {
-                echo '<p>No items to display.</p>';
-            }
-        ?>
     </div>
     <div class="row">
         <a href="#">Back to top</a>
