@@ -46,6 +46,19 @@ function doesUserExist($username) {
     return (count($results) > 0);
 }
 
+// Returns true if a user with the given email exists, false otherwise
+function doesEmailExist($email) {
+    global $db;
+
+    $query = "SELECT * FROM user WHERE email=:email";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':email', $email); 
+    $statement->execute();
+    $results = $statement->fetchAll();
+    $statement->closeCursor();
+    return (count($results) > 0);
+}
+
 // Returns true if the given user exists and the password matches the correct hash, false otherwise
 function authenticate($username, $pass) {
     global $db;
