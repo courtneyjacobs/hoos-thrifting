@@ -1,5 +1,5 @@
 <?php
-// Author: Amara Vo
+// Author: Amara Vo; Courtney Jacobs
 require('connect-db.php');
 
 // Inserts promo code into DB

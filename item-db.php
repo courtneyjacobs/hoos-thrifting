@@ -96,5 +96,28 @@ function addSellItem($userId, $category, $brand, $size, $color, $condition, $des
     $statement->closeCursor();
 
 }
+function upload($image) {
+    global $db;
+
+    $query="insert IGNORE into `items` (`imgVar`) values ('$image')";
+    $statement = $db->prepare($query);
+    
+    mysqli_query($con,$query) or die(mysqli_error($con));
+
+    if ($statement->execute()) {
+        // Display success message
+        echo '<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>';
+        echo '<div id="successMessage" class="alert alert-success">Item successfully listed!</div>';
+    
+        echo '<script type="text/javascript">';
+        echo '$(document).ready( function() {
+              $("#successMessage").delay(1500).fadeOut();
+              });';
+        echo '</script>';
+    } else {
+        echo '<div class="alert alert-danger">There was a problem listing your item.</div>';
+    }
+    $statement->closeCursor();
+}
 
 ?>
