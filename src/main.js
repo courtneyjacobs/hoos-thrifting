@@ -7,48 +7,19 @@
  * sell.html
 */
 
-var items = [];
 
-// Valid Inputs
-
-//*** Creates <p> with items populated
-function createItems() {
-    document.getElementById("createdItems").innerHTML ="<p>Your Items</p>";
-    var i=0;
-    items.forEach( 
-        item => {
-            i++;
-            document.getElementById("createdItems").innerHTML+="<strong> Item " + i + "</strong> <p> Category: " + item.category + ", Brand: " + item.brand + ", Size: " + item.size + ", Color: " +
-            item.color + ", Condition: " + item.condition + ", Description: " + item.desc + ", Price: " + item.price + "</p><br>"; 
-        }
-    )
+//*** Show error if image not selected
+function imageError() {
+    // if image not selected
+    document.getElementById('imgError').innerHTML = "Please choose an image.";
+    
 }
-
-//*** Populate object from form
-function populate() {
-    var newItem = {
-        category:"",
-        brand:"",
-        size:"",
-        color:"white",
-        condition:"new",
-        desc:"none",
-        price: "",
+//*** Live word count for description box.
+// Source: https://stackoverflow.com/questions/14086398/count-textarea-characters
+function checkWordCt() {
+    document.getElementById('desc').onkeydown = function () {
+        document.getElementById('wordCt').innerHTML = "<small>" + (250 - this.value.length) +"</small>";
     };
-    var getDropdown = dropID => {
-        drop = document.getElementById(dropID);
-        return drop.options[drop.selectedIndex].value;
-    }
-    newItem.category = getDropdown("category");
-    newItem.brand = document.getElementById("brand").value;
-    newItem.size = document.getElementById("size").value;
-    newItem.color = document.getElementById("color").value;
-    newItem.condition = document.getElementById("condition").value;
-    newItem.desc = document.getElementById("desc").value;
-    newItem.price = document.getElementById("price").value;
-    items.push(newItem);
-    createItems();
-    document.getElementById("sell-form").reset();
 }
 
 //*** Check if entered price is within range.
@@ -71,7 +42,7 @@ function setEarnings() {
     var earnings = price - fee; 
 
     var youEarn = document.getElementById("youearn");
-    youEarn.value = "$" + earnings;
+    youEarn.value = "$" + earnings.toFixed(2);              // add trailing 0's
 }
 
 /*
@@ -90,22 +61,31 @@ function confirmMessage() {
         document.getElementById("Confirm-Submission").style.display="block";
     }
 
+    /*
     // fundraise form
     if (document.getElementById("fundraise-form")){ 
+
+        // if charity field is empty, then charity error is visible
+        //if (document.getElementById("charityError").style.visibility="visible") {
+        //  event.preventDefault();                                                         // prevents form from submitting
+        //  document.getElementById("charityName").focus();     
+        //}
+        // if promo is invalid, promo error is NOT empty
+        //else 
         
-        // if promo is invalid
-        if (document.getElementById("promoError").style.visibility == "visible") {
-            event.preventDefault();                                                         // prevents form from submitting
+        // if promoError is not shown 
+        if (document.getElementById("promoError").innerHTML != "") {
+            event.preventDefault();                                                         // focus on box, prevents form from submitting
             document.getElementById("promo").focus();       
         }
         else {
-            var name = document.getElementById('FName').value;
             event.preventDefault();                                                         // prevents page from refreshing
             document.getElementById("fundraise-form").style.display="none";
             document.getElementById("Confirm-Submission").style.display="block";
-            document.getElementById("Confirm-Text").innerHTML = "Thank you " + name + ", good luck with your Fundraiser!";
+            document.getElementById("Confirm-Text").innerHTML = "Thank you, good luck with your fundraiser!";
         }
     }
+    */
 }
 
 /*
@@ -115,29 +95,62 @@ var pastPromo = ["GOPUFF", "UVA20", "UVAUPC", "H"];                             
 
 //*** Verify if promo code can be used.
 function checkPromo() {
-    var enteredPromo = document.getElementById("promo").value.toUpperCase();
-    var status = document.getElementById("promoError").style.visibility;
 
-    // if error text is hidden
-    if (status == "hidden") {   
+    // Hide any error messages, then we can re-show them later if they are supposed to be there.
+    //document.getElementById("promoError").style.visibility="hidden";                      // hide the text
 
-        if (document.getElementById("submitButton").disabled) {
-            document.getElementById("submitButton").disabled="false";
-        }           // if disabled button
-
-        if (pastPromo.includes(enteredPromo) && (enteredPromo.length >= 3)) {           // if promo already exists
-            document.getElementById("promoError").style.visibility="visible";           // show error message
-        }
-        else{                                                                           // combo of letters isn't in list yet
-            //FUTURE: add promo code to database list if submit button is clicked
-        }
-        
-    }
-    // if error text is already shown
-    else {
-        document.getElementById("promoError").style.visibility="hidden";                // hide the text
-        checkPromo();                                                                   // call function again
-    }
-
+    var enteredPromo = document.getElementById("promo").value.toUpperCase();            // standardize all codes to uppercase
+    var promoStatus = document.getElementById("promoError").style.visibility;
 
 }
+
+
+//*** Ensure that a charity name has been inputted.
+function checkCharity() {
+    
+    alert('document.getElementById("charityName").value.length');
+
+    ///document.getElementById("charityError").style.visibility="hidden";                       // hide the text
+    var charityStatus = document.getElementById("charityError").style.visibility;
+    var CIOchecked = document.getElementById("CIO-purpose").checked;
+    var charityChecked = document.getElementById("Charity-purpose").checked;
+
+    // if CIO checked
+    if (CIOchecked) {
+        // clear field of charity input
+        
+        if (document.getElementById("charityName").value.length > 0) {
+            document.getElementById("charityName").value = "";                              // CLEAR TEXT FIELD 
+        }
+
+        // remove error message
+        if (charityStatus == "visible") {
+            document.getElementById("charityError").style.visibility="hidden";              // hide error
+        }
+
+    }
+    /*
+    // if Charity checked
+    else if (charityChecked){
+        // check field for empty input, then show error
+        if (document.getElementById("charityName").value == "") {
+            document.getElementById("charityError").style.visibility="visible";             // show error
+        }
+        // if it's not empty
+        else {
+            document.getElementById("charityError").style.visibility="hidden";              // hide error
+        }
+
+    }
+    */
+}
+
+//*** Set default Start Date to the current date.
+// Source: https://css-tricks.com/prefilling-date-input/
+function setCurrentDate() {
+    //alert("hello");
+    let today = new Date().toISOString().substr(0, 10);
+    document.querySelector("#start").value = today;
+    document.getElementById("start").min = today;
+}
+

@@ -42,7 +42,7 @@ const routes: Routes = [
         component: CartComponent,
     },
     { 
-        path: 'profile/:id',
+        path: 'profile',
         component: ProfileComponent,
     },
     { 

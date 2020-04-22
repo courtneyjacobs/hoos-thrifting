@@ -11,6 +11,8 @@ export class SellComponent implements OnInit {
     constructor() { }
 
     ngOnInit(): void {
+
+
     }
 
 }

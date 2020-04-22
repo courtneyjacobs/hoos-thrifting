@@ -1,5 +1,32 @@
+
 <div class="container">
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-        <h1 class="display-4"><a href="{{ url }}">{{ title }}</a></h1>
+        <h1 class="display-4"><a href="profile.php">Profile</a></h1>
+        <!--Show Username-->
+
+    </div>
+    <div class="row">
+        <!--Get user's current info-->
+
+        <div class="col-sm-6">
+            <h2>Edit Profile</h2>
+            <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+                First Name: <input type="text" name="first" class="form-control" value=""  required /> <br/>
+                Last Name: <input type="text" name="last" class="form-control" required value=""> <br/>
+                Email: <input type="email" name="email" class="form-control" required value="" />
+                <p id="signupError" style="color: red; font-size: 14px;"></p>
+                Username: <input type="text" name="username" class="form-control" required value=""/> <br/>       
+                Password: <input type="password" name="pwd" class="form-control" required />
+                <p id="signupError" style="color: red; font-size: 14px;"> </p>  <br/>
+                <input type="submit" name="signup" value="Save" class="btn btn-light"/>  
+                <p id="signupError" style="color: red; font-size: 14px;"> <br></p> 
+            </form>
+
+        </div>
+    </div>
+    <h2> Your Available Items </h2>
+    <div class="row">
+        <!--Show Available Items-->
+        
     </div>
 </div>
