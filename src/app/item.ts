@@ -1,13 +1,14 @@
 export class Item {
-    id: number;
-    listingDatetime: string;
-    status: string;
-    category: string;
-    brand: string;
-    size: string;
-    color: string;
-    condition: string;
-    description: string;
-    price: number;
-    image: string;
+    constructor(
+    public id: number,
+    public listingDatetime: string,
+    public status: string,
+    public category: string,
+    public brand: string,
+    public size: string,
+    public color: string,
+    public condition: string,
+    public description: string,
+    public price: number
+    ) {}
 }

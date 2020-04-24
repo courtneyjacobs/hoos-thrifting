@@ -2,7 +2,6 @@
  * Author: Courtney Jacobs (cj5he), Amara Vo (av2jf)
 */
 
-
 /*
  * sell.html
 */

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Item } from '../item';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-shop',
@@ -9,6 +11,38 @@ import { Item } from '../item';
 export class ShopComponent implements OnInit {
     title = 'Shop';
     url = 'shop';
+    
+    constructor(private http: HttpClient) {  
+        this.getShopItems();
+     }
+
+    // Let's create a property to store a response from the back end
+    // and try binding it back to the view
+    // new Item
+    responsedata = new Array<Item>();
+  
+    confirm_msg = '';
+    data_submitted = '';
+  
+    // Assume we want to send a request to the backend when the form is submitted
+    // so we add code to send a request in this function
+  
+    getShopItems(): void {  
+       // To send a GET request, use the concept of URL rewriting to pass data to the backend
+       // this.http.get<Order>('http://localhost/cs4640/inclass11/ngphp-get.php?str='+params)
+       // To send a POST request, pass data as an object
+       this.http.post<Array<Item>>('http://localhost/hoos-thrifting/php/item-db.php', 'shop')
+       .subscribe((data) => {
+            // Receive a response successfully, do something here
+            console.log('Response from backend ', data);
+            this.responsedata = data;     // assign response to responsedata property to bind to screen later
+       }, (error) => {
+            // An error occurs, handle an error in some way
+            console.log('Error ', error);
+       })
+    }
+
+    /**
     items: Item[] = [
         {
             id: 1,
@@ -20,8 +54,7 @@ export class ShopComponent implements OnInit {
             color: 'blue',
             condition: 'new',
             description: 'A blue shirt.',
-            price: 5,
-            image: '../../assets/testimage.png'
+            price: 5
         },
         {
             id: 2,
@@ -33,8 +66,7 @@ export class ShopComponent implements OnInit {
             color: 'green',
             condition: 'like new',
             description: 'A green shirt.',
-            price: 13,
-            image: '../../assets/testimagey.png'
+            price: 13
         },
         {
             id: 3,
@@ -46,8 +78,7 @@ export class ShopComponent implements OnInit {
             color: 'green',
             condition: 'like new',
             description: 'A green shirt.',
-            price: 30,
-            image: '../../assets/testimagex.png'
+            price: 30
         },
         {
             id: 4,
@@ -59,8 +90,7 @@ export class ShopComponent implements OnInit {
             color: 'green',
             condition: 'like new',
             description: 'A green shirt.',
-            price: 14,
-            image: '../../assets/testimage.png'
+            price: 14
         },
         {
             id: 5,
@@ -72,12 +102,11 @@ export class ShopComponent implements OnInit {
             color: 'green',
             condition: 'like new',
             description: 'A green shirt.',
-            price: 2,
-            image: '../../assets/testimagex.png'
+            price: 2
         },
     ];
-
-    constructor() { }
+    */
+    //constructor() { }
 
     ngOnInit(): void {
     }

@@ -4,10 +4,9 @@
     </div>
     <div class="row">
         <!-- Card columns from Bootstrap docs at https://getbootstrap.com/docs/4.0/components/card/ -->
-        <div *ngFor="let item of items" class="card-deck">
+        <div *ngFor="let item of responsedata" class="card-deck">
             <div class="card shadow-sm">
                 <div class="card-img-top">
-                    <img src="{{ item.image }}">
                 </div>
                 <div class="card-body">
                     <p class="card-text">{{ item.id }}</p>

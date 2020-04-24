@@ -13,7 +13,7 @@
             <img class="rounded mx-auto d-block" src="https://cdn.onlinewebfonts.com/svg/img_234957.png" alt="Upload Icon" style="width:150px;height:150px;" class="center" >
             <!--UPLOAD FORM-->
             <!--Source: https://www.w3schools.com/php/php_file_upload.asp ; https://stackoverflow.com/questions/37504383/button-inside-a-label https://stackoverflow.com/questions/572768/styling-an-input-type-file-button -->
-            <form name="upload-form" action="<?php $_SERVER['PHP_SELF'] ?>" method="GET" enctype="multipart/form-data">
+            <form name="upload-form" method="GET" enctype="multipart/form-data">
                 <br>
                 <div class="form-group">
                     <label>Upload an image:<br><small>(.jpg, .jpeg, .png)</small></label><br></div>
@@ -40,11 +40,18 @@
         <div class="col-lg-8">
             <!--ITEM FORM-->
             <!--Source: Bootstrap form from https://www.w3schools.com/bootstrap/bootstrap_forms.asp -->
-            <form id="sell-form" action="<?php $_SERVER['PHP_SELF'] ?>" method="POST">
+            <form #sellForm="ngForm" (ngSubmit)="onSubmit(sellForm.value)" method="POST">
                 <!--Category Selection-->
                 <div class="form-group required">
                     <label class="col-sm-12" style="display:inline-block; text-align:left;" for="ctg">Category:</label>
                     <div class="col-sm-8"> 
+                        <select class="form-control" [(ngModel)]="itemModel.category" name="category" required style="cursor:pointer;">
+                          <option disabled selected value>-- select a category --</option>
+                          <option *ngFor="let category of categories"> {{ category }}
+                            
+                          </option>
+                        </select>
+                        <!--
                         <select class="form-control" id="category" name="ctg" required style="cursor:pointer;">
                             <option disabled selected value> -- select a category -- </option>
                             <option value="1">Tops</option>
@@ -52,7 +59,7 @@
                             <option value="3">Shoes</option>
                             <option value="4">Accessories</option>
                             <option value="5">Other</option>
-                        </select>
+                        </select>-->
                     </div>
                 </div>
                 <!--Brand Selection-->
