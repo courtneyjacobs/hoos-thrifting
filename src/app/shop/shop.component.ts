@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Item } from '../item';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { ItemService } from '../item.service';
 
 
 @Component({
@@ -12,9 +12,7 @@ export class ShopComponent implements OnInit {
     title = 'Shop';
     url = 'shop';
     
-    constructor(private http: HttpClient) {  
-        this.getShopItems();
-     }
+    constructor(private itemService: ItemService) {}
 
     // Let's create a property to store a response from the back end
     // and try binding it back to the view
@@ -23,23 +21,12 @@ export class ShopComponent implements OnInit {
   
     confirm_msg = '';
     data_submitted = '';
-  
-    // Assume we want to send a request to the backend when the form is submitted
-    // so we add code to send a request in this function
-  
-    getShopItems(): void {  
-       // To send a GET request, use the concept of URL rewriting to pass data to the backend
-       // this.http.get<Order>('http://localhost/cs4640/inclass11/ngphp-get.php?str='+params)
-       // To send a POST request, pass data as an object
-       this.http.post<Array<Item>>('http://localhost/hoos-thrifting/php/item-db.php', 'shop')
-       .subscribe((data) => {
-            // Receive a response successfully, do something here
-            console.log('Response from backend ', data);
-            this.responsedata = data;     // assign response to responsedata property to bind to screen later
-       }, (error) => {
-            // An error occurs, handle an error in some way
-            console.log('Error ', error);
-       })
+
+    // pass form data to orderService
+    getShopItems(data): void {
+        this.itemService.sendItem(data)
+           .subscribe((res) =>
+               this.responsedata = res);
     }
 
     /**
@@ -109,6 +96,7 @@ export class ShopComponent implements OnInit {
     //constructor() { }
 
     ngOnInit(): void {
+        this.getShopItems('all');
     }
 
 }
