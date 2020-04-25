@@ -18,85 +18,25 @@ export class ShopComponent implements OnInit {
     // and try binding it back to the view
     // new Item
     responsedata = new Array<Item>();
-  
-    confirm_msg = '';
-    data_submitted = '';
 
-    // pass form data to orderService
-    getShopItems(data): void {
-        this.itemService.sendItem(data)
-           .subscribe((res) =>
-               this.responsedata = res);
+    //responsedata = new Item(0, '', '', '', '', '', '', '', '', 0);
+
+    confirm_msg = '';
+
+    // get form data from orderService
+    getShopItems(): void {
+        this.itemService.getItem('shop')
+           .subscribe((res) => {
+               var resArr = res['content'];
+               for (var i = 0; i < resArr['length']; i++) {
+                   this.responsedata[i] = resArr[i];
+               }});
+
+        this.confirm_msg = 'length = ' + this.responsedata['length'].toString();
     }
 
-    /**
-    items: Item[] = [
-        {
-            id: 1,
-            listingDatetime: '20200312T12:00:00',
-            status: 'active',
-            category: '1',
-            brand: '2',
-            size: '3',
-            color: 'blue',
-            condition: 'new',
-            description: 'A blue shirt.',
-            price: 5
-        },
-        {
-            id: 2,
-            listingDatetime: '20200311T12:00:00',
-            status: 'sold',
-            category: '2',
-            brand: '3',
-            size: '4',
-            color: 'green',
-            condition: 'like new',
-            description: 'A green shirt.',
-            price: 13
-        },
-        {
-            id: 3,
-            listingDatetime: '20200311T12:00:00',
-            status: 'sold',
-            category: '2',
-            brand: '3',
-            size: '4',
-            color: 'green',
-            condition: 'like new',
-            description: 'A green shirt.',
-            price: 30
-        },
-        {
-            id: 4,
-            listingDatetime: '20200311T12:00:00',
-            status: 'sold',
-            category: '2',
-            brand: '3',
-            size: '4',
-            color: 'green',
-            condition: 'like new',
-            description: 'A green shirt.',
-            price: 14
-        },
-        {
-            id: 5,
-            listingDatetime: '20200311T12:00:00',
-            status: 'sold',
-            category: '2',
-            brand: '3',
-            size: '4',
-            color: 'green',
-            condition: 'like new',
-            description: 'A green shirt.',
-            price: 2
-        },
-    ];
-    */
-    //constructor() { }
-
     ngOnInit(): void {
-        this.getShopItems('all');
+        this.getShopItems();
     }
 
 }

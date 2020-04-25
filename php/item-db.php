@@ -17,33 +17,28 @@ require('connect-db.php');
 //    }
 
 
-// get the size of incoming data
-$content_length = (int) $_SERVER['CONTENT_LENGTH'];
-
 // retrieve data from the request
 $postdata = file_get_contents("php://input");
-
-// Process data
-// (this example simply extracts the data and restructures them back)
 
 // Extract json format to PHP array
 $request = json_decode($postdata);
 
 $data = [];
-$data[0]['length'] = $content_length;
-foreach ($request as $k => $v)
-{
-  $data[0]['post_'.$k] = $v;
+$len = 0;
+
+// get shop items and put in $data object
+$resArray = getShopItems('', '');
+foreach($resArray as $res) {
+    $data[$len] = $res;
+    $len++;
 }
+
+
+$data['length'] = $len;
 
 // Send response (in json format) back the front end
 echo json_encode(['content'=>$data]);
 
-
-
-
-
- 
 // Returns all items for a user with given id
 function getUserItems($id) {
     global $db;
