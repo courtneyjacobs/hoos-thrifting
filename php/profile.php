@@ -146,7 +146,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 Username: <input type="text" name="username" class="form-control" required value="<?php if(isset($tempUser)) echo $tempUser; else if (isset($newUser)) echo $newUser?>"/> <br/>       
                 Password: <input type="password" name="pwd" class="form-control" required <?php if(isset($passError) && !isset($emailError)) echo "autofocus" ?> />
                 <p id="signupError" style="color: red; font-size: 14px;"> <?php if(isset($passError)) echo $passError?></p>  <br/>
-                <input type="submit" name="signup" value="Save" class="btn btn-light"/>  
+                <input type="submit" name="signup" value="Save" class="btn btn-secondary"/>  
                 <p id="signupError" style="color: red; font-size: 14px;"> <br><?php if(isset($signupError)) echo $signupError?></p> 
             </form>
 
