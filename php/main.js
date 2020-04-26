@@ -105,44 +105,35 @@ function checkPromo() {
 }
 
 
-//*** Ensure that a charity name has been inputted.
+//*** Ensure that a charity name has been inputted each time a button is selected.
 function checkCharity() {
     
-    alert('document.getElementById("charityName").value.length');
+    //alert('document.getElementById("charityName").value.length');
 
     ///document.getElementById("charityError").style.visibility="hidden";                       // hide the text
     var charityStatus = document.getElementById("charityError").style.visibility;
     var CIOchecked = document.getElementById("CIO-purpose").checked;
     var charityChecked = document.getElementById("Charity-purpose").checked;
 
+    // if Charity is selected
+    if (charityChecked) {
+        // make it required
+        document.getElementById("charityName").required = true;
+
+    }
+
     // if CIO checked
     if (CIOchecked) {
         // clear field of charity input
-        
         if (document.getElementById("charityName").value.length > 0) {
             document.getElementById("charityName").value = "";                              // CLEAR TEXT FIELD 
         }
 
-        // remove error message
-        if (charityStatus == "visible") {
-            document.getElementById("charityError").style.visibility="hidden";              // hide error
-        }
+        // make charity name optional
+        document.getElementById("charityName").required = false;
 
     }
-    /*
-    // if Charity checked
-    else if (charityChecked){
-        // check field for empty input, then show error
-        if (document.getElementById("charityName").value == "") {
-            document.getElementById("charityError").style.visibility="visible";             // show error
-        }
-        // if it's not empty
-        else {
-            document.getElementById("charityError").style.visibility="hidden";              // hide error
-        }
-
-    }
-    */
+    
 }
 
 //*** Set default Start Date to the current date.
