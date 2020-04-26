@@ -18,7 +18,7 @@
 
 <?php
 require('connect-db.php');
-require('promo-db.php');
+require('fundraise-db.php');
 setcookie('redirect', 'fundraise.php', time()+3600);  
 session_start();
 ?>
@@ -94,6 +94,32 @@ session_start();
             else {
 
         ?>
+        <!--Insert Promocodes into Database-->
+        <?php
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+
+            // if the required fields are NOT empty: cio, start, end, code
+            if (!empty($_GET['cio']) && !empty($_GET['start']) && !empty($_GET['end'])  && !empty($_GET['code'])) {
+                // insert into database
+                // $promo, $userId, $start, $duration, $cio, $charity
+                
+                // if there's a charity:
+                if (!empty($_GET['charity'])) {
+
+                   // check if Promocode already exists?
+                    insertPromo($_GET['code'], $_SESSION['userId'], $_GET['start'], $_GET['end'], $_GET['cio'], $_GET['charity']);
+                    
+                }
+                // there's not a charity
+                else {
+                    insertPromo($_GET['code'], $_SESSION['userId'], $_GET['start'], $_GET['end'], $_GET['cio'], null);
+                }
+                
+            }
+
+        }
+        ?>
+
 
 
     <!--Fundraise Form-->
@@ -120,11 +146,11 @@ session_start();
             <!--Fundraising Information-->
             <div class="col-lg-2 form-group required">   
                 <label for="start">Start Date:</label><br>
-                <input required type="date" id="start" min="2020-02-27" style="width:105px">
+                <input required type="date" id="start" name="start" min="2020-02-27" style="width:105px">
             </div>
             <div class="col-lg-2 form-group required">   
                 <label for="end">Duration:</label><br>
-                <input id="end" placeholder="# of Days" required type="number"step="1" min="1" max="30" style="width:100px" >
+                <input id="end" name="end" placeholder="# of Days" required type="number"step="1" min="1" max="30" style="width:100px" >
             </div>
             <!--Promo code Box-->
             <div class="col-lg-2 form-group required">   
@@ -132,7 +158,7 @@ session_start();
                 <input onkeyup="checkPromo()" required type="text" id="promo" name="code" pattern="[A-Za-z0-9]{3,6}" placeholder="Min. 3 characters" minlength="3" maxlength="6" style="width: 150px">
             </div>
             <!--Submit Button-->
-            <div class="col-lg-12 form-group"> 
+            <div class="col-lg-12 form-group" style="text-align: center"> 
                 <button id="submitButton" name="promo" type="submit" class="btn btn-secondary" style="width:144px">Submit</button> 
             </div>
         </div>
@@ -151,7 +177,7 @@ session_start();
     echo "</div>";
 ?>
 
-<!--Validate Charity-->
+<!--Send to Database-->
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
