@@ -3,16 +3,16 @@
         <h1 class="display-4"><a href="{{ url }}">{{ title }}</a></h1>
     </div>
     <form>
-        <input type="radio" value="newestFirst" id="newestFirst" name="sort" [(ngModel)]="sort">
+        <input type="radio" value="newestFirst" id="newestFirst" name="sort" [(ngModel)]="generalSort" (change) ="handleChange($event)">
         <label for="newestFirst">Newest First</label><br>
-        <input type="radio" value="oldestFirst" id="oldestFirst" name="sort" [(ngModel)]="sort">
+        <input type="radio" value="oldestFirst" id="oldestFirst" name="sort" [(ngModel)]="generalSort" (change) ="handleChange($event)">
         <label for="oldestFirst">Oldest First</label><br>
-        <input type="radio" value="lowToHigh" id="lowToHigh" name="sort" [(ngModel)]="sort">
+        <input type="radio" value="lowToHigh" id="lowToHigh" name="sort" [(ngModel)]="generalSort" (change) ="handleChange($event)">
         <label for="lowToHigh">Price Low to High</label><br>
-        <input type="radio" value="highToLow" id="highToLow"name="sort" [(ngModel)]="sort">
+        <input type="radio" value="highToLow" id="highToLow"name="sort" [(ngModel)]="generalSort" (change) ="handleChange($event)">
         <label for="highToLow">Price High to Low</label><br>
     </form>
-    <div *ngIf="hasAccess == 'allowed'" class="row">
+    <div class="row">
         <!-- Card columns from Bootstrap docs at https://getbootstrap.com/docs/4.0/components/card/ -->
         <div *ngFor="let item of responsedata" class="card-deck">
             <div class="card shadow-sm">
@@ -20,7 +20,8 @@
                 </div>
                 <div class="card-body">
                     <p class="card-text">Id: {{ item.id }}</p>
-                    <p class="card-text">Brand: {{ item.brand }}</p>
+                    <div *ngIf="item.brand != ''; else elseBlock"><p class="card-text">Brand: {{ item.brand }}</p></div>
+                    <ng-template #elseBlock><p class="card-text">Brand: Not Specified</p></ng-template>
                     <p class="card-text">${{ item.price }}</p>
                     <p class="card-text">By user: {{ item.userId }}
                 </div>

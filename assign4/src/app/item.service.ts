@@ -13,20 +13,12 @@ export class ItemService {
 
   constructor(private http: HttpClient) { }
 
-  sendItemRequest(data: any): Observable<any> {
-    return this.http.post('http://localhost/hoos-thrifting/php/shop-db.php', data);
+  sendItemRequest(sort: any, dir: any): Observable<any> {
+    return this.http.post('http://localhost/hoos-thrifting/php/shop-db.php', {sort, dir}, {responsetype : 'json'});
   }
 
-  getItem(func: string): Observable<Item[]> {
-     return this.sendItemRequest(func);
-  }
-
-  getSession(): Observable<any> {
-    return this.sendSessionRequest();
-  }
-
-  sendSessionRequest() : Observable<any> {
-    return this.http.post('http://localhost/hoos-thrifting/php/session-db.php', {withCredentials: true, responseType: 'text' as 'json'});
+  getItem(sort: string, dir: string): Observable<Item[]> {
+     return this.sendItemRequest(sort, dir);
   }
 
 }

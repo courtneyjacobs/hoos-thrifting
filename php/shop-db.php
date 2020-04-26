@@ -5,14 +5,15 @@ require('connect-db.php');
 
 header('Access-Control-Allow-Origin: http://localhost:4200');
 header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Origin, Authorization, Accept, Client-Security-Token, Accept-Encoding');
-header('Access-Control-Max-Age: 1000');
-header('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT');
 
 // retrieve data from the request
-$postdata = file_get_contents("php://input");
+$getData = file_get_contents("php://input");
 
 // Extract json format to PHP array
-$request = json_decode($postdata);
+$request = json_decode($getData, true);
+
+$sort = trim($request['sort']);
+$dir = trim($request['dir']);
 
 // Set up 
 $len = 0;
@@ -20,7 +21,7 @@ $len = 0;
 $data = [];
 
 // get shop items and put in $data object
-$resArray = getShopItems('', '');
+$resArray = getShopItems($sort, $dir);
 foreach($resArray as $res) {
     $data[$len] = $res;
     $len++;
@@ -34,28 +35,23 @@ echo json_encode(['content'=>$data]);
 function getShopItems($filter, $direction) {
     global $db;
     // Default is by most recently added
-    if($filter == "") {
-        $query = "SELECT id, userId, category, brand, size, color, cond, description, price FROM item ORDER BY creationDatetime DESC";
-    }
-    // if filter specified
-    else {
-        // ascending
+    if($filter == "creationDatetime") {
         if($direction == "asc") {
-            $query = "SELECT id, userId, category, brand, size, color, cond, description, price FROM item ORDER BY :filter ASC";
+            $query = "SELECT id, userId, category, brand, size, color, cond, description, price FROM item ORDER BY creationDatetime ASC";
         }
-        // descending
-        if($direction == "desc") {
-            $query = "SELECT id, userId, category, brand, size, color, cond, description, price FROM item ORDER BY :filter DESC";
-        }
-        // otherwise
         else {
-            $query = "SELECT id, userId, category, brand, size, color, cond, description, price FROM item ORDER BY :filter";
+            $query = "SELECT id, userId, category, brand, size, color, cond, description, price FROM item ORDER BY creationDatetime DESC";
+        }
+    }
+    else {
+        if($direction == "asc") {
+            $query = "SELECT id, userId, category, brand, size, color, cond, description, price FROM item ORDER BY price ASC";
+        }
+        if($direction == "desc") {
+            $query = "SELECT id, userId, category, brand, size, color, cond, description, price FROM item ORDER BY price DESC";
         }
     }
     $statement = $db->prepare($query);
-    if($filter != "") {
-        $statement->bindValue(':filter', $filter); 
-    }
     $statement->execute();
     $results = $statement->fetchAll();
     $statement->closeCursor();
