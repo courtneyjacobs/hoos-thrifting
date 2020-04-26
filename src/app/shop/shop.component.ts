@@ -14,16 +14,11 @@ export class ShopComponent implements OnInit {
     
     constructor(private itemService: ItemService) {}
 
-    // Let's create a property to store a response from the back end
-    // and try binding it back to the view
-    // new Item
     responsedata = new Array<Item>();
-
-    //responsedata = new Item(0, '', '', '', '', '', '', '', '', 0);
 
     confirm_msg = '';
 
-    // get form data from orderService
+    // get all items
     getShopItems(): void {
         this.itemService.getItem('shop')
            .subscribe((res) => {
@@ -31,8 +26,6 @@ export class ShopComponent implements OnInit {
                for (var i = 0; i < resArr['length']; i++) {
                    this.responsedata[i] = resArr[i];
                }});
-
-        this.confirm_msg = 'length = ' + this.responsedata['length'].toString();
     }
 
     ngOnInit(): void {

@@ -7,6 +7,25 @@
 
         <!--PHP: Insert Items into Database-->
 
+
+
+        <h3>Order Confirmation</h3>
+        Confirm:
+          <font color="green" style="font-style:italic">
+            <!-- If confirm_msg is not empty, display confirm message, otherwise, display default text -->
+            {{ (confirm_msg.length > 0)? confirm_msg : 'Display your confirmation message' }}</font> <br/>
+        Data submitted:
+          <font color="green" style="font-style:italic">
+            <!-- If confirm_msg is not empty, display form data that was submitted. -->
+            <!-- We don't check the size of data_submitted here since we want to avoid error
+                 when the page is loaded and form has not been submitted (and data_submitted is an object -- json data).
+                 Also, we designed our program to set confirm_msg only after the button has been clicked
+                 (i.e., the form has been submitted). Thus, we can make use of confirm_msg here. -->
+            {{ (confirm_msg.length > 0)? (data_submitted | json) : 'Display the submitted order' }}
+          </font> <br/>
+        <hr/>
+
+
     <div id="sellForm" class="row" style="visibility: visible">
         <!--Upload Button-->
         <div class="col-lg-4">
@@ -40,16 +59,14 @@
         <div class="col-lg-8">
             <!--ITEM FORM-->
             <!--Source: Bootstrap form from https://www.w3schools.com/bootstrap/bootstrap_forms.asp -->
-            <form #sellForm="ngForm" (ngSubmit)="onSubmit(sellForm.value)" method="POST">
+            <form #sellForm="ngForm" (ngSubmit)="addItem()" method="POST">
                 <!--Category Selection-->
                 <div class="form-group required">
                     <label class="col-sm-12" style="display:inline-block; text-align:left;" for="ctg">Category:</label>
                     <div class="col-sm-8"> 
-                        <select class="form-control" [(ngModel)]="itemModel.category" name="category" required style="cursor:pointer;">
+                        <select class="form-control" [(ngModel)]="data_submitted.category" name="category" required style="cursor:pointer;">
                           <option disabled selected value>-- select a category --</option>
-                          <option *ngFor="let category of categories"> {{ category }}
-                            
-                          </option>
+                          <option *ngFor="let category of categories"> {{ category }}</option>
                         </select>
                         <!--
                         <select class="form-control" id="category" name="ctg" required style="cursor:pointer;">
@@ -66,14 +83,14 @@
                 <div class="form-group">   
                     <label class="col-sm-12" style="display:inline-block; text-align:left;" for="brand">Brand:</label>
                     <div class="col-sm-8">
-                        <input class="col-sm-12" type="text" id="brandBox" name="brand"> 
+                        <input class="col-sm-12" type="text" id="brandBox" name="brand" [(ngModel)]="data_submitted.brand"> 
                     </div>
                 </div>
                 <!--Size Selection-->
                 <div class="form-group required">
                     <label class="col-sm-12" style="display:inline-block; text-align:left;" for="size">Size:</label>
                     <div class="col-sm-8">          
-                        <select class="form-control" id="size" name="size" required style="cursor:pointer;">
+                        <select class="form-control" id="size" name="size" required style="cursor:pointer;" [(ngModel)]="data_submitted.size">
                             <option disabled selected value> -- select a size -- </option>
                             <option value="1">No Size</option>
                             <option value="2">XS (00-1)</option>
@@ -88,7 +105,7 @@
                 <div class="form-group">
                     <label class="col-sm-12" style="display:inline-block; text-align:left;" for="color">Color:</label>
                     <div class="col-sm-8">          
-                        <select class="form-control" id="color" name="color" style="cursor:pointer;">
+                        <select class="form-control" id="color" name="color" style="cursor:pointer;" [(ngModel)]="data_submitted.color">
                             <option value="0" selected></option>
                             <option value="1">Black</option>
                             <option value="2">Blue</option>
@@ -107,9 +124,9 @@
                 </div>
                 <!--Condition Selection-->
                 <div class="form-group required">
-                    <label class="col-sm-12" style="display:inline-block; text-align:left;" for="cond">Condition:</label>
+                    <label class="col-sm-12" style="display:inline-block; text-align:left;" for="cond" >Condition:</label>
                     <div class="col-sm-8">          
-                        <select class="form-control" id="condition" name="cond" required style="cursor:pointer;">
+                        <select class="form-control" id="condition" name="cond" required style="cursor:pointer;" [(ngModel)]="data_submitted.cond">
                             <option disabled selected value> -- select a condition -- </option>
                             <option value="1">New</option>
                             <option value="2">Like New</option>
@@ -123,7 +140,7 @@
                 <div class="form-group">   
                     <label class="col-sm-12" style="display:inline-block; text-align:left;" for="desc">Description:</label>
                     <div class="col-sm-8">
-                        <textarea class="form-control" id="desc" name="desc" maxlength="250" onkeydown="checkWordCt()"></textarea>
+                        <textarea class="form-control" id="desc" name="desc" maxlength="250" onkeydown="checkWordCt()" [(ngModel)]="data_submitted.description"></textarea>
                         <div class="col-sm-14" style=" text-align:right;" id="wordCt"><small>250</small></div>
                     </div>
                 </div>
@@ -131,7 +148,7 @@
                 <div class="form-group required">
                     <label class="col-sm-12" style="display:inline-block; text-align:left;" for="price">Price:</label>
                     <div class="col-sm-3">
-                        <input class="form-control"  id="price" name="price" type="number" step="0.01" min="1" max="1000" required onchange="validPrice()">
+                        <input class="form-control"  id="price" name="price" type="number" step="0.01" min="1" max="1000" required onchange="validPrice()" [(ngModel)]="data_submitted.price">
                     </div> 
                     <div class="col-sm-12" style=" text-align:left;"><small style="color: red" id="youearnError"></small></div>
                 </div>

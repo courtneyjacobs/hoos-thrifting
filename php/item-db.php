@@ -9,35 +9,39 @@ header('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT');
 require('connect-db.php');
 
 
-// Insert items into database
-    // if the required fields are NOT empty: category, size, condition, price
-//    if (!empty($_POST['ctg']) && !empty($_POST['size']) && !empty($_POST['cond']) && !empty($_POST['price'])) {
-        // insert into database
-//        addSellItem(0, $_POST['ctg'], $_POST['brand'], $_POST['size'], $_POST['color'], $_POST['cond'], $_POST['desc'], $_POST['price']);
-//    }
-
-
 // retrieve data from the request
 $postdata = file_get_contents("php://input");
 
 // Extract json format to PHP array
 $request = json_decode($postdata);
 
-$data = [];
+// Set up 
 $len = 0;
 
-// get shop items and put in $data object
-$resArray = getShopItems('', '');
-foreach($resArray as $res) {
-    $data[$len] = $res;
-    $len++;
+// SELL TODO: this is not how you check between the two
+if($postdata == null) {
+//    if (!empty($_POST['ctg']) && !empty($_POST['size']) && !empty($_POST['cond']) && !empty($_POST['price'])) {
+        // insert into database
+//        addSellItem(0, $_POST['ctg'], $_POST['brand'], $_POST['size'], $_POST['color'], $_POST['cond'], $_POST['desc'], $_POST['price']);
+//    }
+}
+// SHOP
+else {
+    $data = [];
+
+    // get shop items and put in $data object
+    $resArray = getShopItems('', '');
+    foreach($resArray as $res) {
+        $data[$len] = $res;
+        $len++;
+    }
+
+    $data['length'] = $len;
+    // Send response (in json format) back the front end
+    echo json_encode(['content'=>$data]);
 }
 
 
-$data['length'] = $len;
-
-// Send response (in json format) back the front end
-echo json_encode(['content'=>$data]);
 
 // Returns all items for a user with given id
 function getUserItems($id) {
@@ -57,21 +61,21 @@ function getShopItems($filter, $direction) {
     global $db;
     // Default is by most recently added
     if($filter == "") {
-        $query = "SELECT userId, category, brand, size, color, cond, description, price FROM item ORDER BY creationDatetime DESC";
+        $query = "SELECT id, userId, category, brand, size, color, cond, description, price FROM item ORDER BY creationDatetime DESC";
     }
     // if filter specified
     else {
         // ascending
         if($direction == "asc") {
-            $query = "SELECT userId, category, brand, size, color, cond, description, price FROM item ORDER BY :filter ASC";
+            $query = "SELECT id, userId, category, brand, size, color, cond, description, price FROM item ORDER BY :filter ASC";
         }
         // descending
         if($direction == "desc") {
-            $query = "SELECT userId, category, brand, size, color, cond, description, price FROM item ORDER BY :filter DESC";
+            $query = "SELECT id, userId, category, brand, size, color, cond, description, price FROM item ORDER BY :filter DESC";
         }
         // otherwise
         else {
-            $query = "SELECT userId, category, brand, size, color, cond, description, price FROM item ORDER BY :filter";
+            $query = "SELECT id, userId, category, brand, size, color, cond, description, price FROM item ORDER BY :filter";
         }
     }
     $statement = $db->prepare($query);
@@ -115,22 +119,17 @@ function addSellItem($userId, $category, $brand, $size, $color, $condition, $des
     $statement->bindValue(':price', $price);
 
     if ($statement->execute()) {
-        //echo "New record created successfully for item";
-
+        $statement->closeCursor();
         // Display success message
         // Source: https://stackoverflow.com/questions/2426304/how-to-hide-a-div-after-some-time-period
-        echo '<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>';
-        echo '<div id="successMessage" class="alert alert-success">Item successfully listed!</div>';
-    
-        echo '<script type="text/javascript">';
-        echo '$(document).ready( function() {
+        echo '<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>'.'<div id="successMessage" class="alert alert-success">Item successfully listed!</div>'.'<script type="text/javascript">'.'$(document).ready( function() {
               $("#successMessage").delay(1500).fadeOut();
-              });';
-        echo '</script>';
+              });'.'</script>';
+
     } else {
+        $statement->closeCursor();
         echo '<div class="alert alert-danger">There was a problem listing your item.</div>';
     }
-    $statement->closeCursor();
 
 }
 function upload($image) {
