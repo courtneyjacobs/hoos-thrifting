@@ -18,15 +18,15 @@ export class ItemService {
   }
 
   getItem(func: string): Observable<Item[]> {
-    var res = this.sendItemRequest(func);
-    console.log(res);
-     return res;
+     return this.sendItemRequest(func);
   }
 
-  /*getSession(item): Observable<string> {
-     return (this.sendSessionRequest();
+  getSession(): Observable<any> {
+    return this.sendSessionRequest();
   }
 
-  sendSessionRequest*/
+  sendSessionRequest() : Observable<any> {
+    return this.http.post('http://localhost/hoos-thrifting/php/session-db.php', {withCredentials: true, responseType: 'text' as 'json'});
+  }
 
 }

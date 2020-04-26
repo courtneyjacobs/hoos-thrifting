@@ -14,6 +14,8 @@ export class AppComponent {
 
   title = 'Shop';
   url = 'http://localhost:4200';
+  hasAccess = 'denied';
+  sort='';
 
   constructor(private itemService: ItemService) {}
 
@@ -23,7 +25,11 @@ export class AppComponent {
 
     // get all items
     getShopItems(): void {
-        this.itemService.getItem('shop')
+        this.itemService.getSession()
+           .subscribe((res) => {
+               this.hasAccess = res['session'];
+             });
+        this.itemService.getItem(this.sort)
            .subscribe((res) => {
                var resArr = res['content'];
                for (var i = 0; i < resArr['length']; i++) {
@@ -32,6 +38,7 @@ export class AppComponent {
     }
 
     ngOnInit(): void {
+        this.sort = '';
         this.getShopItems();
     }
 

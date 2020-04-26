@@ -17,7 +17,7 @@ $request = json_decode($postdata);
 // Set up 
 $len = 0;
 
- $data = [];
+$data = [];
 
 // get shop items and put in $data object
 $resArray = getShopItems('', '');
@@ -35,21 +35,21 @@ function getShopItems($filter, $direction) {
     global $db;
     // Default is by most recently added
     if($filter == "") {
-        $query = "SELECT userId, category, brand, size, color, cond, description, price FROM item ORDER BY creationDatetime DESC";
+        $query = "SELECT id, userId, category, brand, size, color, cond, description, price FROM item ORDER BY creationDatetime DESC";
     }
     // if filter specified
     else {
         // ascending
         if($direction == "asc") {
-            $query = "SELECT userId, category, brand, size, color, cond, description, price FROM item ORDER BY :filter ASC";
+            $query = "SELECT id, userId, category, brand, size, color, cond, description, price FROM item ORDER BY :filter ASC";
         }
         // descending
         if($direction == "desc") {
-            $query = "SELECT userId, category, brand, size, color, cond, description, price FROM item ORDER BY :filter DESC";
+            $query = "SELECT id, userId, category, brand, size, color, cond, description, price FROM item ORDER BY :filter DESC";
         }
         // otherwise
         else {
-            $query = "SELECT userId, category, brand, size, color, cond, description, price FROM item ORDER BY :filter";
+            $query = "SELECT id, userId, category, brand, size, color, cond, description, price FROM item ORDER BY :filter";
         }
     }
     $statement = $db->prepare($query);

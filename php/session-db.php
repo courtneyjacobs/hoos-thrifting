@@ -9,14 +9,11 @@ header('Access-Control-Allow-Credentials: true');
 require('connect-db.php');
 session_start();
 
+$data = 'denied';
 // if logged in, return true
 if(isset($_SESSION['user'])) {
-    return (1);
+    $data = 'allowed';
 }
-// else return false
-else {
-    return (0);
-}
-
+echo json_encode(['session'=>$data]);
 
 ?>

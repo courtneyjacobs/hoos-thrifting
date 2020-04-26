@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 // NEEDED TO USE HTTP AND FORMS
 import { HttpClientModule } from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
 
 import { ItemService } from './item.service'
 
@@ -19,7 +20,8 @@ import {APP_BASE_HREF} from '@angular/common';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     ItemService,
