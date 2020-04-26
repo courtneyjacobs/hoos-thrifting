@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,20 @@ import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
   title = 'Shop';
 
+  goToUrl(page) {
+    window.location.href = 'page';
+  }
+
   constructor(private http: HttpClient) { }
+
+  /*
+  sendPost(data: any): Observable<any> {
+    return this.http.post("https://localhost/hoos-thrifting/php/login.php", data, {responseType: 'text'});
+    console.log(data);
+  */
 
 }
 

@@ -21,7 +21,7 @@
 require('connect-db.php');
 require('item-db.php');
 session_start();
-setcookie('redirect', 'shop.php', time()+3600);  
+setcookie('redirect', 'http://localhost:4200', time()+3600);  
 ?>
 
 <!--Source: Bootstrap Nav Bar from https://getbootstrap.com/docs/4.4/components/navbar/ -->   
@@ -33,7 +33,7 @@ setcookie('redirect', 'shop.php', time()+3600);
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">   
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a href="shop.php" class="nav-link">Shop</a></li>
+                <li class="nav-item"><a href="http://localhost:4200" class="nav-link">Shop</a></li>
                 <li class="nav-item"><a href="sell.php" class="nav-link">Sell</a></li>
                 <li class="nav-item"><a href="fundraise.php" class="nav-link">Fundraise</a></li>
             </ul>
@@ -48,7 +48,7 @@ setcookie('redirect', 'shop.php', time()+3600);
 
 <div class="container">
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-        <h1 class="display-4"><a href="shop.php">Shop</a></h1>
+        <h1 class="display-4"><a href="http://localhost:4200">Shop</a></h1>
     </div>
     <div class="row">
             <?php
@@ -86,7 +86,7 @@ setcookie('redirect', 'shop.php', time()+3600);
         </div>
         <div class="col-4">
             <ul style="text-align: center;">
-                <li><a href="shop.php">Shop</a></li>
+                <li><a href="http://localhost:4200">Shop</a></li>
                 <li><a href="sell.php">Sell</a></li>
                 <li><a href="fundraise.php">Fundraise</a></li>
             </ul>

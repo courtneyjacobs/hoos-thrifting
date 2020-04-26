@@ -34,7 +34,7 @@ setcookie('redirect', 'index.php', time()+3600);
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">   
                     <ul class="navbar-nav mr-auto">
-                            <li class="nav-item"><a href="shop.php" class="nav-link">Shop</a></li>
+                            <li class="nav-item"><a href="http://localhost:4200" class="nav-link">Shop</a></li>
                             <li class="nav-item"><a href="sell.php" class="nav-link">Sell</a></li>
                             <li class="nav-item"><a href="fundraise.php" class="nav-link">Fundraise</a></li>
                     </ul>
@@ -63,7 +63,7 @@ setcookie('redirect', 'index.php', time()+3600);
             </div>
             <div class="card-body">
                 <p> Some text about shopping... </p>
-                <button type="button" class="btn btn-lg btn-block btn-success" onclick="window.location.href = 'shop.php';">Start Shopping</button>
+                <button type="button" class="btn btn-lg btn-block btn-success" onclick="window.location.href = 'http://localhost:4200';">Start Shopping</button>
             </div>
         </div>
         <div class="card mb-4 shadow-sm">
@@ -131,7 +131,7 @@ setcookie('redirect', 'index.php', time()+3600);
                 </div>
                 <div class="col-4">
                         <ul style="text-align: center;">
-                                <li><a href="shop.php">Shop</a></li>
+                                <li><a href="http://localhost:4200">Shop</a></li>
                                 <li><a href="sell.php">Sell</a></li>
                                 <li><a href="fundraise.php">Fundraise</a></li>
                         </ul>

@@ -33,7 +33,7 @@ setcookie('redirect', 'sell.php', time()+3600);
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">   
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a href="shop.php" class="nav-link">Shop</a></li>
+                <li class="nav-item"><a href="http://localhost:4200" class="nav-link">Shop</a></li>
                 <li class="nav-item"><a href="sell.php" class="nav-link">Sell</a></li>
                 <li class="nav-item"><a href="fundraise.php" class="nav-link">Fundraise</a></li>
             </ul>
@@ -315,7 +315,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         <div class="col-4">
             <ul style="text-align: center;">
-                <li><a href="shop.php">Shop</a></li>
+                <li><a href="http://localhost:4200">Shop</a></li>
                 <li><a href="sell.php">Sell</a></li>
                 <li><a href="fundraise.php">Fundraise</a></li>
             </ul>
