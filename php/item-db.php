@@ -6,7 +6,7 @@ require('connect-db.php');
 function getUserItems($id) {
     global $db;
 
-    $query = "SELECT userId, category, brand, size, color, cond, description, price FROM item WHERE userId=:id";
+    $query = "SELECT id, userId, category, brand, size, color, cond, description, price FROM item WHERE userId=:id";
     $statement = $db->prepare($query);
     $statement->bindValue(':id', intval($id)); 
     $statement->execute();
@@ -15,11 +15,11 @@ function getUserItems($id) {
     return $results;
 }
 
-// Returns 5 most recently listed items to display on home page
-function get5RecentItems() {
+// Returns 4 most recently listed items to display on home page
+function get4RecentItems() {
     global $db;
 
-    $query = "SELECT userId, category, brand, size, color, cond, description, price FROM item ORDER BY creationDatetime DESC LIMIT 5";
+    $query = "SELECT id, userId, category, brand, size, color, cond, description, price FROM item ORDER BY creationDatetime DESC LIMIT 4";
     $statement = $db->prepare($query);
     $statement->execute();
     $results = $statement->fetchAll();
