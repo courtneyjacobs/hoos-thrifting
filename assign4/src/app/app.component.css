@@ -1,0 +1,13 @@
+.form{
+    text-align: left;
+    position: relative;
+    left: 45%;
+}
+
+.label {
+    color: purple;
+}
+
+.p {
+    color: green;
+}
