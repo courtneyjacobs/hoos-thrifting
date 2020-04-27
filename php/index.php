@@ -97,27 +97,38 @@ setcookie('redirect', 'index.php', time()+3600);
         <hr class="featurette-divider">
         <div class="pricing-header px-3 py-3 pb-md-4 mx-auto text-center">
                     <h1 class="display-4">Recently Listed Items</h1>
+                </div>
+                    <div>
                         <?php
-                                $items = get5RecentItems();
+                                $items = get4RecentItems();
                                 if(!empty($items)) {
-                                        echo '<ul>';
+                                        echo '<div class="card-deck" style="text-align:center;">';
                                         foreach($items as $item) {
-                                                echo '<li>';
-                                                echo 'User Id: ' . $item['userId'] . ', Category: '. $item['category'] . ', Brand: ' . $item['brand'] . 
-                                                    ', Size: ' . $item['size'] . ', Color: ' . $item['color'] . ', Condition: ' . 
-                                                    $item['cond'] . ', Description: ' . $item['description'] . ', Price: ' . $item['price'];
-                                                echo '</li>';
-                                        }
-                                        echo '</ul>';
-                                }
-                                else {
-                                        echo '<p>No items to display.</p>';
+                                            echo '<div class="col-sm-3">';
+                                                echo '<div class="card shadow-sm" style="width: 250px;">';
+                                                    echo '<div class="card-img-top"><img class="card-img-top" src="https://www.anjrpc.org/global_graphics/default-store-350x350.jpg" alt="Default Image"></div>';
+                                                    echo '<div class="card-body" >'; 
+                                                        echo '<p class="card-text">Id: '.$item['id'].'</p>';
+                                                        echo '<p class="card-text">Brand:';
+                                                        if($item['brand']=='') echo 'Not Specified'; 
+                                                        else echo $item['brand'].'</p>';         
+                                                        echo '<p class="card-text">$'.$item['price'].'</p>';
+                                                        echo '<p class="card-text">By user: '.$item['userId'].'</p>';
+                                                    echo '</div>
+                                                </div>
+                                            </div>';
+                                        } 
+                                        echo '</div></div>';
+
+                                }else {
+                                    echo '<p>No items to display.</p>';
                                 }
                         ?> 
                 </div>
+            </div>
 </div>
 </div>
-
+<br>
 
 <!--Footer-->
 <footer class="page-footer">

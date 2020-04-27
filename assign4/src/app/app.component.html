@@ -28,9 +28,9 @@
             <div class="col-sm-6">
                 <div class="card shadow-sm" style="width: 250px;">
                     <div class="card-img-top">
+                        <img class="card-img-top" src="https://www.anjrpc.org/global_graphics/default-store-350x350.jpg" alt="Default Image">
                     </div>
                     <div class="card-body" >
-                        <img class="card-img-top" src="https://www.anjrpc.org/global_graphics/default-store-350x350.jpg" alt="Default Image">
                         <p class="card-text">Id: {{ item.id }}</p>
                         <div *ngIf="item.brand != ''; else elseBlock"><p class="card-text">Brand: {{ item.brand }}</p></div>
                         <ng-template #elseBlock><p class="card-text">Brand: Not Specified</p></ng-template>                        
